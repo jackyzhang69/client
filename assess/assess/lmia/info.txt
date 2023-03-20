@@ -1,0 +1,10 @@
+
+** Abbreviation of LMIA Stream **
+
+- Global Talent Stream: lmia_gts
+- Agricultural stream: lmia_as
+- Seasonal Agricultural Worker Program: lmia_sawp
+- Permanent residence stream: lmia_ee
+- In-home caregivers: lmia_ihc
+- High-wage stream: lmia_hws
+- Low-wage stream: lmia_lws

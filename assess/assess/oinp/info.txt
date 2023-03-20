@@ -1,0 +1,31 @@
+**Area**
+
+0. area0-> Toronto
+1. area1 -> Inside GTA (except Toronto)
+2. area2 -> Other areas outside GTA (except Northern Ontario)
+3. area3 ->  Northern Ontario
+
+**Education**
+
+0. Doctor
+1. Master
+2. Bachelor
+3. Trades certification or Diploma
+4. Secondary or below
+
+**Education Field**
+
+0. STEM/Health (Engineering, Health, Math, Computer Science) and Trades (agriculture and natural resources operations and management, mechanics and repair, architecture, construction and precision production) - 12 points
+1. Business and administration, social, legal, education, behavioral science, personal, security and transport services, social work and related programs - 6 points
+2. Arts and humanities, BHASE programs, n.e.c - 0 points
+
+**Number of Canadian official languages mastered**
+
+1. One official Language
+2.  Two official Languages
+
+**Study locations**
+0. area0-> Toronto
+1. area1 -> Inside GTA (except Toronto)
+2. area2 -> Other areas outside GTA (except Northern Ontario)
+3. area3 ->  Northern Ontario

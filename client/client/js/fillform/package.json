@@ -1,0 +1,27 @@
+{
+	"name": "webform-filler",
+	"version": "1.0.13",
+	"description": "A unified webform filling tool",
+	"main": "fill.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [
+		"webform",
+		"fill",
+		"programtically",
+		"automatically",
+		"automation"
+	],
+	"author": "Jacky Zhang",
+	"license": "ISC",
+	"dependencies": {
+		"argparse": "^2.0.1",
+		"dotenv": "^16.0.3",
+		"node-ts": "^5.1.2",
+		"pkg": "^5.7.0",
+		"puppeteer": "^14.4.1",
+		"ts-node": "^10.9.1",
+		"webform-filler": "^1.0.13"
+	}
+}

@@ -1,0 +1,308 @@
+{
+   "noc": [
+      {
+         "program": "LMIA",
+         "stream": "Prioritized occupations",
+         "description": "ffective June 10, 2020, the program is prioritizing certain occupations which are considered essential during the COVID-19 pandemic",
+         "noc_codes": "3012,3111,3112,3124,3131,3211,3212,3214,3219,3233,3237,3413,3414,6331,6731,8252,8431,8432,8611,9462,9463,9617,9618",
+         "remark": "Quebec is not included",
+         "source": "https://www.canada.ca/en/employment-social-development/services/foreign-workers/median-wage/high/requirements.html"
+      },
+      {
+         "program": "LMIA",
+         "stream": "Refusal to process",
+         "description": "ESDC will not process some applications under certain coditions",
+         "noc_codes": "3012, 3233, 4411,4412",
+         "remark": "Only if under the NAICS Private household (NAICS 814), and there is a live-in requirement",
+         "source": "https://www.canada.ca/en/employment-social-development/services/foreign-workers/refusal.html"
+      },
+      {
+         "program": "LMIA",
+         "stream": "Global Talent Stream",
+         "description": "GTA will waive advertisement requirement and get fast process. ",
+         "noc_codes": "0213,2147,2161,2171,2172,2173,2174,2175,2281,2283,5131,5241",
+         "remark": "For 2161,5131,5241, there are only some sub-set qualified",
+         "source": "https://www.canada.ca/en/employment-social-development/services/foreign-workers/global-talent/requirements.html#h15"
+      },
+      {
+         "program": "LMIA",
+         "stream": "Prioritized occupations",
+         "description": "Prioritized but subject to the regular minimum recruitment requirements",
+         "noc_codes": "6331,8252,8431,8432,8611,9462,9463,9617,9618",
+         "remark": "Waived advertisement before 2020-12-31,but after then required again. ",
+         "source": "https://www.canada.ca/en/employment-social-development/services/foreign-workers/academic/recruitment.html"
+      },
+      {
+         "program": "LMIA",
+         "stream": "In-home caregiver",
+         "description": "provide care, in a private residence, to children, seniors or persons with certified medical needs",
+         "noc_codes": "4411,4412,3012,3233",
+         "remark": null,
+         "source": "https://www.canada.ca/en/employment-social-development/services/foreign-workers/caregiver.html"
+      },
+      {
+         "program": "LMIA",
+         "stream": "HWS",
+         "description": "Wage must be higher than provincial median wage",
+         "noc_codes": "7202,7204,7205,7271,7301,7302,8211,8221,8222,8241,8252,9211,9212,9214,9231,9241,9243,7231,7233,7235,7236,7237,7241,7242,7243,7244,7245,7246,7251,7252,7253,7311,7312,7313,7314,7315,7318,7371,7372,7373,8231,8232,9232",
+         "remark": "skilled trades eligible for 10-day speed of service",
+         "source": "https://www.canada.ca/en/employment-social-development/services/foreign-workers/service-tables.html#h2.3"
+      },
+      {
+         "program": "BCPNP",
+         "stream": "Tech ",
+         "description": null,
+         "noc_codes": "0131,0213,0512,2131,2132,2133,2134,2147,2171,2172,2173,2174,2175,2221,2241,2242,2243,2281,2282,2283,5121,5122,5125,5224,5225,5226,5227,5241,6221",
+         "remark": null,
+         "source": "https://www.welcomebc.ca/Immigrate-to-B-C/About-The-BC-PNP#PriorityOccupations"
+      },
+      {
+         "program": "BCPNP",
+         "stream": "Healthcare occupations",
+         "description": null,
+         "noc_codes": "0311,3011,3012,3111,3112,3113,3122,3124,3125,3131,3132,3141,3142,3143,3144,3211,3212,3214,3215,3216,3217,3219,3221,3222,3223,3232,3233,3234,3237,3411,3413,4151,4152,4153,4212",
+         "remark": "Only health care assistants / health care aides are eligible under NOC 3413.",
+         "source": "https://www.welcomebc.ca/Immigrate-to-B-C/About-The-BC-PNP#PriorityOccupations"
+      },
+      {
+         "program": "BCPNP",
+         "stream": "Other priority",
+         "description": null,
+         "noc_codes": "3114 3213 ",
+         "remark": null,
+         "source": "https://www.welcomebc.ca/Immigrate-to-B-C/About-The-BC-PNP#PriorityOccupations"
+      },
+      {
+         "program": "BCPNP",
+         "stream": "Childcare occupations",
+         "description": null,
+         "noc_codes": "4214",
+         "remark": null,
+         "source": "https://www.welcomebc.ca/Immigrate-to-B-C/About-The-BC-PNP#PriorityOccupations"
+      },
+      {
+         "program": "BCPNP",
+         "stream": "ELSS-BC",
+         "description": "f-t job offer, 9+ consecutive months we",
+         "noc_codes": "6525,6531,6532,6533,6511,6512,6513,6711,6731,6732,6733,6721,6741,6742,9461,9462,9463,9465,9617,9618,7511,3413,3411",
+         "remark": "only health care assistants / aides eligible under NOC 3413.",
+         "source": "https://www.welcomebc.ca/Immigrate-to-B-C/Skills-Immigration#ELSS"
+      },
+      {
+         "program": "BCPNP",
+         "stream": "ELSS-Northeast ",
+         "description": "f-t job offer, 9+ consecutive months we",
+         "noc_codes": "level C, D",
+         "remark": "except for 4411,4412",
+         "source": "https://www.welcomebc.ca/Immigrate-to-B-C/Skills-Immigration#ELSS"
+      },
+      {
+         "program": "AAIP",
+         "stream": "AOS-Ineligible occupation",
+         "description": null,
+         "noc_codes": "0011,0422,0423,0432,0651,4031,4032,4154,5121,5133,5135,5136,1227,3223,4214,4216,4217,5232,5244,5251,6232,4411,4412,4413,6533,6564,7513,8442,6623,6722,6742,8611,8612,8613,8614",
+         "remark": "ECEs  not have certification through Alberta Childrens Services or certified as Level 1 Early Childhood Educator",
+         "source": "https://www.alberta.ca/aaip-alberta-opportunity-stream-eligibility.aspx"
+      },
+      {
+         "program": "AAIP",
+         "stream": "EE-Accelerated Tech Pathway ",
+         "description": null,
+         "noc_codes": "0013,0131,0211,0212,0213,0512,1123,1223,2131,2132,2133,2147,2171,2172,2173,2174,2175,2221,2232,2233,2281,2282,2283,3211,3212,3219,4163,5241,7241,7242,7246,",
+         "remark": null,
+         "source": "https://www.alberta.ca/assets/documents/lbr-aaip-tech-pathway-nocs-codes-list.pdf"
+      },
+      {
+         "program": "AAIP",
+         "stream": "Rural Renewal Stream-Ineligible occupation",
+         "description": null,
+         "noc_codes": "0011,0651,4154,5121,5133,5135,5136,1227,3223,4217,5232,5244,5251,4411,4412,6533,6564,8611",
+         "remark": null,
+         "source": "https://www.alberta.ca/aaip-rural-renewal-stream-eligibility.aspx"
+      },
+      {
+         "program": "OINP",
+         "stream": "In-demand skills stream-across Ontario",
+         "description": null,
+         "noc_codes": "3413,4412,7441,7511,7521,7611,8431,8432,8611,9462",
+         "remark": null,
+         "source": "https://www.ontario.ca/page/oinp-employer-job-offer-demand-skills-stream"
+      },
+      {
+         "program": "OINP",
+         "stream": "In-demand skills stream-Outside GTA",
+         "description": null,
+         "noc_codes": "9411,9416,9417,9418,9421,9422,9437,9446,9461,9523,9526,9536,9537",
+         "remark": null,
+         "source": "https://www.ontario.ca/page/oinp-employer-job-offer-demand-skills-stream"
+      },
+      {
+         "program": "OINP",
+         "stream": "EE-Skileed Trades stream",
+         "description": null,
+         "noc_codes": "6331,6332,7201,7202,7203,7204,7205,7231,7232,7233,7234,7235,7236,7237,7241,7242,7243,7244,7245,7246,7247,7251,7252,7253,7271,7272,7281,7282,7283,7284,7291,7292,7293,7294,7295,7301,7302,7303,7304,7305,7311,7312,7313,7314,7315,7316,7317,7318,7321,7322,7331,7332,7333,7334,7335,7361,7362,7371,7372,7373,7381,7384,8211,8221,8222,8231,8232,8241,8252,8255,8261,8262",
+         "remark": null,
+         "source": "https://www.ontario.ca/page/ontarios-express-entry-skilled-trades-stream#section-2"
+      },
+      {
+         "program": "SINP",
+         "stream": "Excluded Occupation list: OID & EE: International Skileed worker: ",
+         "description": "OID stream:No job offer in Sas, scored 60/110, CLB4, post-secondary\nSAS EE: Points assessed (60), meet Federeal EE requirements",
+         "noc_codes": "0011,012,015,311,411,412,413,414,422,431,432,433,511,512,513,823,111,113,227,228,1312,1314,1315,2111,2113,2114,2115,2122,2145,2146,2152,2153,2271,2273,2274,2275,3011,3012,3111,3112,3113,3114,3121,3124,3125,3131,3132,3141,3142,3144,3213,3221,3222,3231,3232,3233,3236,4012,4031,4032,4111,4112,4154,4155,4168,4217,4311,4312,4313,5111,5112,5113,5121,5122,5123,5125,5131,5132,5133,5134,5135,5136,5211,5212,5221,5222,5223,5224,5225,5226,arts,227,5231,5232,5241,5242,5243,5244,5245,5251,5252,5253,5254,6231,6232,6311,6314,6341,6343,6346,7233,7247,7253,7303,7316,7318,7331,7361,7372,8232,8261,8262,9214,9217,9221,9222,9223,9224,9227,9235,9243",
+         "remark": null,
+         "source": "https://www.saskatchewan.ca/residents/moving-to-saskatchewan/live-in-saskatchewan/by-immigrating/saskatchewan-immigrant-nominee-program/browse-sinp-programs/applicants-international-skilled-workers/international-skilled-worker-occupations-in-demand"
+      },
+      {
+         "program": "SINP",
+         "stream": "International skilled worker:Hard-to-Fill pilot",
+         "description": "1 year full-time work experiecne in the intended occupation within the last 3 years, or 6 months (780 hours) in Saskatchewan in the job. CLB 4, High school, SINP JAL.points not assessed",
+         "noc_codes": "9619,9617,9612,9536,9526,9461,9431,9416,8431,7611,7521,7511,7452,6733,6731,6711,6525,6513,4412,3414,3413,1525,1521",
+         "remark": "NOC 4412 not for applicant  who reside in the clients residence or their place of work. \n\nNOC 7511 \u2013  requires appropriate license from  Saskatchewan Government Insurance (SGI). ",
+         "source": "https://www.saskatchewan.ca/residents/moving-to-saskatchewan/live-in-saskatchewan/by-immigrating/saskatchewan-immigrant-nominee-program/browse-sinp-programs/applicants-international-skilled-workers/hard-to-fill-skills-pilot"
+      },
+      {
+         "program": "SINP",
+         "stream": "International Skilled Worker:Tech Pilot Pathway ",
+         "description": "1 year full-time work experiecne in the intended occupation within the last 5 years, or 6 months (780 hours) in Saskatchewan in the job. CLB 5 or assessed by empoloyer if currently working, Post-secondary that relates to the job, SINP JAL, Points not assessed",
+         "noc_codes": "0213,2133,2147,2171,2172,2173,2174,2175,2281,2282,2283",
+         "remark": "\u00a0NOC 2147 ,NOC 2173 \u2013 Software Engineers (but not Designers), and NOC 2133 \u2013 Electrical and Electronics Engineers: \nregistration approved in  APEGS or showing assigned Confirmatory Exams.",
+         "source": "https://www.saskatchewan.ca/residents/moving-to-saskatchewan/live-in-saskatchewan/by-immigrating/saskatchewan-immigrant-nominee-program/browse-sinp-programs/applicants-international-skilled-workers/sinp-tech-talent-pathway"
+      },
+      {
+         "program": "SINP",
+         "stream": "International Skilled Worker:International Healthcare Worker stream",
+         "description": "Sas job offer needed, apply through Employment offer stream or Hard-to-Fill pilot; ",
+         "noc_codes": "1252,2263,3012,3122,3124,3131,3141,3142,3143,3211,3212,3214,3215,3216,3217,3219,3223,3233,3234,3237,3413,4151",
+         "remark": "3012-Registered Nurses -  CRNS\u00a0requirements are available.\n3233-Licensed Practical Nurses -  (SALPN)\u00a0requirements are available.",
+         "source": "https://www.saskatchewan.ca/residents/moving-to-saskatchewan/live-in-saskatchewan/by-immigrating/saskatchewan-immigrant-nominee-program/browse-sinp-programs/applicants-international-skilled-workers/international-healthcare-worker-eoi-pool"
+      },
+      {
+         "program": "MBPNP",
+         "stream": "International Education Stream-career employment pathwayOID",
+         "description": "Graduated from post-secondary in MB within 3 years, clb7,f-t jo and currently working",
+         "noc_codes": "0111,0112,0114,0121,0122,0124,1111,1112,1114,1121,1122,1123,1212,1215,1221,1223,1224,1241,1242,1251,1311,0211,0212,0213,2121,2123,2131,2132,2133,2141,2147,2151,2154,2161,2171,2172,2173,2174,2175,2211,2212,2221,2222,2231,2232,2233,2234,2241,2242,2244,2253,2271,2281,2282,0311,3131,3132,3141,3142,3143,3211,3212,3213,3214,3215,3219,3222,3236,0423,4112,4151,4152,4153,4161,4163,4164,4165,4166,4167,4168,4211,4212,4214,4215,0513,5131,5225,5241,5242,5243,5254,0601,0621,0651,6221,6222,6232,6235,6311,6322,6332,0711,0712,0714,0731,7231,7232,7233,7237,7241,7242,7244,7245,7246,7251,7271,7282,7284,7294,7295,7311,7312,7313,7315,7316,7321,7322,7361,7362,7371,0821,0911,0912,9241",
+         "remark": null,
+         "source": "https://immigratemanitoba.com/immigrate-to-manitoba/in-demand-occupations/"
+      },
+      {
+         "program": "NSPNP",
+         "stream": "Priorities for Physicians",
+         "description": "approved offer from NSHA  or IWK, ",
+         "noc_codes": "3112,3111",
+         "remark": "EE or non-EE",
+         "source": "https://novascotiaimmigration.com/move-here/labour-market-priorities-physicians/"
+      },
+      {
+         "program": "NSPNP",
+         "stream": "IG in-Demand",
+         "description": "21-55 yrs; permanent jo, 50%+study in NS within 3 years, 30+weeks, high school, clb5",
+         "noc_codes": "3413,4214",
+         "remark": null,
+         "source": "https://novascotiaimmigration.com/move-here/international-graduates-in-demand/"
+      },
+      {
+         "program": "NSPNP",
+         "stream": "OID",
+         "description": "21-55 yrs, high school, 1 year related we within 5 years, Clb4",
+         "noc_codes": "3413,6513,6711,6731,7511,7611",
+         "remark": null,
+         "source": "https://novascotiaimmigration.com/move-here/occupations-in-demand/"
+      },
+      {
+         "program": "NLPNP",
+         "stream": "In-demand work category",
+         "description": "1 year related we within 10 years, Clb5, score 60+points",
+         "noc_codes": null,
+         "remark": null,
+         "source": "https://www.gov.nl.ca/immigration/excluded-positions/"
+      },
+      {
+         "program": "NBPNP",
+         "stream": "7511 specific pathway",
+         "description": "24 months 7511 we including 6 months in NB within 5 years, f-t jo, clb4, high school, score min 60 /90 points",
+         "noc_codes": "7511",
+         "remark": null,
+         "source": "https://www.welcomenb.ca/content/wel-bien/en/immigration_programs.html"
+      },
+      {
+         "program": "PEIPNP",
+         "stream": "OID",
+         "description": "f-t job offer, 1 year related we in PEI,high school, clb4",
+         "noc_codes": "3413 ,7511,7611,6731",
+         "remark": null,
+         "source": "https://www.princeedwardisland.ca/en/information/office-of-immigration/occupations-in-demand"
+      },
+      {
+         "program": "NTNP",
+         "stream": "/",
+         "description": null,
+         "noc_codes": null,
+         "remark": null,
+         "source": null
+      },
+      {
+         "program": "YNP",
+         "stream": "/",
+         "description": null,
+         "noc_codes": null,
+         "remark": null,
+         "source": null
+      },
+      {
+         "program": "AIP",
+         "stream": "/",
+         "description": null,
+         "noc_codes": null,
+         "remark": null,
+         "source": null
+      },
+      {
+         "program": "RNIP",
+         "stream": "North Bay & area",
+         "description": null,
+         "noc_codes": "3012,3413,3233,3112,4152,4214,4212,4412,3111,7312,7321,7311,7611,7237,7271,7241,7251,7521,7535,1111,1112,1113,1114,1211,1212,1213,1214,1215,1311,0213,2147,2171,2172,2173,2151,2251,2231,2232,2233,2234,7315,2244,2271,1242",
+         "remark": null,
+         "source": null
+      },
+      {
+         "program": "Caregiver",
+         "stream": "Home Child Care Provider pilot",
+         "description": "The program  provide in-home caregivers with the opportunity to become a permanent resident once they have 2 years of eligible work experience in Canada. It also lets their family members come to Canada to work or study while they get work experience.",
+         "noc_codes": "4411",
+         "remark": null,
+         "source": "https://www.canada.ca/en/immigration-refugees-citizenship/services/work-canada/hire-permanent-foreign/in-home-caregiver.html"
+      },
+      {
+         "program": "Caregiver",
+         "stream": "Home Support Worker pilot",
+         "description": "The program  provide in-home caregivers with the opportunity to become a permanent resident once they have 2 years of eligible work experience in Canada. It also lets their family members come to Canada to work or study while they get work experience",
+         "noc_codes": "4412",
+         "remark": null,
+         "source": "https://www.canada.ca/en/immigration-refugees-citizenship/services/work-canada/hire-permanent-foreign/in-home-caregiver.html"
+      },
+      {
+         "program": "AFP",
+         "stream": "Agri-Food Pilot",
+         "description": "Agri-Food Pilot Occupations",
+         "noc_codes": "6331,9462,8252,9617,8431,8611",
+         "remark": null,
+         "source": null
+      },
+      {
+         "program": "EE",
+         "stream": "FST",
+         "description": "Federal Skill Trade",
+         "noc_codes": "7201, 720602, 7203, 7204, 7205, 7231, 7232, 7233, 7234, 7235, 7236, 7237, 7241, 7242, 7243, 7244, 7245, 7246, 7247, 7251, 7252, 7253, 7271, 7272, 7281, 7282, 7283, 7284, 7291, 7292, 7293, 7294, 7295,  7301, 7302, 7303, 7304, 7305, 7311, 7312, 7313, 7314, 7315, 7316, 7318, 7321, 7322, 7331, 7332, 7333, 7334, 7335, 7361, 7362, 7371, 7372, 7373, 7381, 7384,  8211, 8221, 8222, 8231, 8232, 8241, 8252, 8255, 8261, 8262, 9211, 9212, 9213, 9214, 9215, 9217, 9221, 9222, 9223, 9224, 9226, 9227, 9231, 9232, 9235, 9241, 9243, 6321,6322,6331, 6332",
+         "remark": null,
+         "source": null
+      },
+      {
+         "program": "Self-employed",
+         "stream": "Federal self employed occupation list",
+         "description": null,
+         "noc_codes": "5111,5112,5113,5121,5122,5123,5124,5125,5131,5132,5133,5134,5135,5136,5211,5212,5221,5222,5223,5224,5225,5226,5227,5231,5232,5241,5242,5243,5244,5245,5251,5252,5253,5254",
+         "remark": null,
+         "source": null
+      }
+   ]
+}

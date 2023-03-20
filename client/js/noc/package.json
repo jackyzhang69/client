@@ -1,0 +1,28 @@
+{
+  "name": "imm-noc",
+  "version": "1.0.8",
+  "description": "A tool for noc inquiry",
+  "main": "noc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "noc"
+  ],
+  "author": "Jacky Zhang",
+  "license": "ISC",
+  "dependencies": {
+    "argparse": "^2.0.1",
+    "array-sort": "^1.0.0",
+    "chalk": "^5.0.1",
+    "chrome-launcher": "^0.15.0",
+    "colors.ts": "^1.0.20",
+    "console-table-printer": "^2.11.0",
+    "console.table": "^0.10.0",
+    "imm-noc": "^1.0.8",
+    "puppeteer": "^13.7.0",
+    "ts-node": "^10.8.1",
+    "typescript": "^4.7.3",
+    "typo-js": "^1.2.1"
+  }
+}

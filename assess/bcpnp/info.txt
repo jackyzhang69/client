@@ -1,0 +1,36 @@
+**Area**
+
+0. area1-> Metro Vancouver Regional District
+
+1. area2-> Squamish Abbotsford Agassiz Mission and Chilliwack
+
+2. area3-> Areas of B.C. not included in Area 1 or 2
+
+
+
+**Education**
+
+0. Doctor
+
+1. Master
+
+2. Bachelor
+
+3. Post Graduate Certificate or Diploma
+
+4. Trades certification
+
+5. Associate Degree
+
+6. Non-trades certification or Diploma
+
+7. Secondary
+
+
+**Education_bonus**
+
+0. BC Post-secondary
+
+1. Canada Post-secondary
+
+2. Other

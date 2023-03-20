@@ -1,0 +1,13 @@
+{
+  "username": "john_doe3",
+  "email": "example@example.com",
+  "password": "password123",
+  "contact_first_name": "John",
+  "contact_last_name": "Doe",
+  "street_address": "123 Main St",
+  "city": "Toronto",
+  "province": "Ontario - Canada",
+  "post_code": "M5V 2L7",
+  "phone": "(123) 456-7890",
+  "web": "http://example.com"
+}

@@ -1,0 +1,28 @@
+{
+    "login": {
+        "email": "jackyzhang1969@outlook.com",
+        "password": "Super20220103!"
+    },
+    "security": {
+        "significant other": "Shanghai",
+        "childhood best": "dongfang",
+        "first trip": "China"
+    },
+    "cra_number": "826098626RP0001",
+    "employer_contacts": [
+        "Hang Xu",
+        "Rudolf Buena"
+    ],
+    "representative": {
+        "name": "Yanfei Xing",
+        "paid": true,
+        "type": 0,
+        "member_id": "R511623",
+        "province": "BC",
+        "explaination": ""
+    },
+    "stream": {
+        "name": "Agri",
+        "category": ""
+    }
+}

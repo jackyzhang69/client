@@ -1,0 +1,24 @@
+
+**Education level**
+
+0. Doctor
+
+1. Master
+
+2. Professional
+
+3. Bachelor
+
+4. Associate Degree
+
+5. Two more post-secondary
+
+6. 3-year post-secondary
+
+7. 2-year post-secondary
+
+8. 1-year post-secondary
+
+9. Secondary
+
+10. Under Secondary
