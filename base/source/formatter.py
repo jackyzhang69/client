@@ -144,6 +144,9 @@ class CellFormatter:
                 "has_applied_before": {
                     "validation": v.yes_no,
                 },
+                "have_active_registration": {
+                    "validation": v.yes_no,
+                },
                 "has_eligible_pro_designation": {
                     "validation": v.yes_no,
                 },

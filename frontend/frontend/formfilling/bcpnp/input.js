@@ -107,7 +107,7 @@ function getArgs() {
     }
 
 
-    if (((args.pdf || args.png) && !fs.existsSync(args.screen_snap_folder)) {
+    if ((args.pdf || args.png) && !fs.existsSync(args.screen_snap_folder)) {
         print(`${args.screen_snap_folder} does not exist`, "error");
         process.exit(1);
     }

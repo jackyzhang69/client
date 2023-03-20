@@ -267,10 +267,19 @@ class Source:
 
     # set table translation result to the values
     def set_table_translated_values(self, table, variable_list, table_values):
+        # here  row_index could be more than table_values length, so we have to count non-null rows manually
+        none_null_row_index = 0
         for row_index, row in enumerate(table.data):
+            if (table.table_name in ["table-phone","table-personid"] ): # remove null rows
+                if not row.number:
+                    continue
+            if (table.table_name in ["table-contact","table-eraddress","table-address"] ): # remove null rows
+                if not row.street_name:
+                    continue
             table.data[row_index] = self.set_table_row_translated_values(
-                row, variable_list, table_values[row_index]
+                row, variable_list, table_values[none_null_row_index]
             )
+            none_null_row_index += 1
         return table
 
     def translate_values(self, source_language="zh", target_language="en"):

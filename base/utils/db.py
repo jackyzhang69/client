@@ -1,5 +1,4 @@
-import os, certifi, dotenv
-from pydantic import BaseModel
+import os, certifi,dotenv
 from pymongo import MongoClient
 from typing import List
 from datetime import datetime
@@ -9,6 +8,7 @@ path = os.path.abspath(os.path.join(os.path.expanduser("~"), ".immenv"))
 config = dotenv.dotenv_values(path)
 # load env variables if a .env file exists
 dotenv.load_dotenv(path)
+
 # Mongodb
 account = os.getenv("MongoDBUser")
 password = os.getenv("MongoDBPassword")
