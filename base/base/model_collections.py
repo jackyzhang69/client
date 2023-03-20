@@ -116,6 +116,11 @@ helps = {
         check,
         pdfform("--rcic", "Make Employer Declaration Form json"),
     ],
+    "bcpnp-rep": [
+        title,
+        make,
+        check,
+    ],
     "5476": [
         title,
         make,
@@ -341,6 +346,16 @@ def get_models(
             "help": {
                 "description": "This model can make and check excel model, and generate BCPNP Rep form ",
                 "helps": helps["bcpnp-rpf"],
+            },
+        },
+        "bcpnp-rep": {
+            "path": "bcpnp.model.mrepinfo",
+            "class_list": ["MRepInfoModel", "MRepInfoModelE"],
+            "remark": "BCPNP module for Representative model inside of webpage",
+            "pdf_function": "No",
+            "help": {
+                "description": "This model can make and check excel model, and generate BCPNP Rep information for filling webpage ",
+                "helps": helps["bcpnp-rep"],
             },
         },
         "bcpnp-pro": {

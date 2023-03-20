@@ -4,7 +4,7 @@ copy_client:
 	cp -r "${HOME}/imm/base" ~/client/base
 	cp -r "${HOME}/imm/client" ~/client/client
 	cp -r "${HOME}/imm/assess" ~/client/assess
-	cp -r "${HOME}/imm/frontend" ~/client/frontend
+	cp -r "${HOME}/imm/frontend" ~/client/frontend --exclude "${HOME}/imm/frontend/formfilling/node_modules"
 
 # build client app
 build_client:
