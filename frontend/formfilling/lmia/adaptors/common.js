@@ -242,7 +242,7 @@ const jobOfferData = (data) => {
 const recruitmentData = (data) => {
     const get_jobbank_id = () => {
         for (let adv of data.advertisement) {
-            if (adv.media == "Jobbank") {
+            if (adv.media.toLowerCase() === "jobbank") {
                 return adv.advertisement_id ? adv.advertisement_id.toString() : null;
             }
         }
@@ -256,6 +256,9 @@ const recruitmentData = (data) => {
         let canadiansHired = 0;
         let canadiansDeclinedOffers = 0;
         let resumesNotInterviewedOffered = 0;
+        let why_canadian_not_hired = "";
+        let canadian_records = [];
+        let index = 0;
 
         for (const record of interviewRecords) {
             // Check if candidate is Canadian
@@ -283,17 +286,27 @@ const recruitmentData = (data) => {
                     // Increment number of resumes not interviewed but offered a job
                     resumesNotInterviewedOffered++;
                 }
-            }
 
-            return {
-                resumesReceived,
-                canadiansInterviewed,
-                canadiansOffered,
-                canadiansHired,
-                canadiansDeclinedOffers,
-                resumesNotInterviewedOffered,
-            };
+                // assemble why Canadian not hired
+                if (
+                    (record.offered === "No" || (record.offered === "Yes" && record.accepted === "No"))
+                ) {
+                    canadian_records.push(`Applicant ${index + 1}: ${record.record}`);
+                }
+            }
+            index += 1;
         }
+        why_canadian_not_hired = canadian_records.join("\n");
+
+        return {
+            resumesReceived,
+            canadiansInterviewed,
+            canadiansOffered,
+            canadiansHired,
+            canadiansDeclinedOffers,
+            resumesNotInterviewedOffered,
+            why_canadian_not_hired
+        };
     }
 
     const summary = computeInterviewStatistics(data.interviewrecord);
@@ -314,7 +327,7 @@ const recruitmentData = (data) => {
         canadians_hired: summary.canadiansHired.toString(),
         canadians_declined_offers: summary.canadiansDeclinedOffers.toString(),
         resumes_not_interviewed_offered: summary.resumesNotInterviewedOffered.toString(),
-        why_not_recruit_canadians: data.recruitmentsummary.reasons_not_hire_canadians,
+        why_not_recruit_canadians: summary.why_canadian_not_hired,
         employees_number: (Math.round(data.general.ft_employee_number + data.general.pt_employee_number / 2)).toString(),
         revenue_more_than_5m: data.finance[0].revenue >= 5000000,
         why_not_attempted_to_recruit_canadians: null, //TODO: we have no such situation, so just leave it null
