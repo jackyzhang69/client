@@ -242,7 +242,7 @@ const jobOfferData = (data) => {
 const recruitmentData = (data) => {
     const get_jobbank_id = () => {
         for (let adv of data.advertisement) {
-            if (adv.media == "Jobbank") {
+            if (adv.media.toLowerCase() === "jobbank") {
                 return adv.advertisement_id ? adv.advertisement_id.toString() : null;
             }
         }

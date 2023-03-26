@@ -221,7 +221,7 @@ const recruitmentSchema = yup.object().shape({
         'job_ad_waivable', {
         is: true,
         then: () => yup.boolean().required(),
-        otherwise: () => yup.boolean().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }
     ).required(),
     using_jobbank: yup.boolean().when(

@@ -77,9 +77,7 @@ class Source:
 
     @property
     def glossary(self):
-        with open("base/source/glossary.json", "r") as f:
-            glossary = json.load(f)
-
+        from base.source.glossary import glossary
         return glossary
 
     """ Translate excel forms description,titles in another language, and return a new excel obj """
