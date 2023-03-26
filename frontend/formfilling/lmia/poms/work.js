@@ -7,6 +7,7 @@ work location: including last wage question, and work location repeatable questi
 
 const WebPage = require('../../page');
 const { selectOptionHasSimilarText } = require('../../libs/playwright');
+const { print } = require('../../libs/output');
 
 class Work extends WebPage {
     constructor(page, args) {
