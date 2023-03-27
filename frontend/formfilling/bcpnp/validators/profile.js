@@ -18,12 +18,12 @@ const profileSchema = yup.object().shape({
             used_last_name: yup.string().when('has_used_name', {
                 is: true,
                 then: () => yup.string().required(),
-                otherwise: () => yup.string().notRequired(),
+                otherwise: () => yup.mixed().notRequired(),
             }),
             used_first_name: yup.string().when('has_used_name', {
                 is: true,
                 then: () => yup.string().required(),
-                otherwise: () => yup.string().notRequired(),
+                otherwise: () => yup.mixed().notRequired(),
             }),
             dob: yup.string()
                 .matches(/^\d{4}-\d{2}-\d{2}$/, 'Invalid date format. Must be "YYYY-MM-DD"'),

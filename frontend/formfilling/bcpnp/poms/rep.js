@@ -8,6 +8,7 @@ const { print } = require('../../libs/output');
 class Representative extends WebPage {
     constructor(page, args) {
         super(page, "representative", "Representative", args.data);
+        this.args = args;
         this.add = true; // add or edit
     }
 
@@ -17,7 +18,7 @@ class Representative extends WebPage {
     }
 
     async checkAddOrEdit() {
-        const theButton = await this.page.locator('a.btn').first();
+        const theButton = await this.page.locator('a.btn').first(); // actually, no matter it's add or edit, it's the first button
         const innerText = await theButton.innerText();
 
         if (innerText === "Add Representative") {
@@ -36,7 +37,12 @@ class Representative extends WebPage {
         await this.page.locator("#first_name").fill(rep.first_name);
         await this.page.locator("#organization").fill(rep.orgnization);
         await this.page.locator("#phone").fill(rep.phone);
-        await this.page.locator("#phone_secondary").fill(rep.phone_secondary);
+        if (rep.phone_secondary) {
+            await this.page.locator("#phone_secondary").fill(rep.phone_secondary);
+        } else {
+            await this.page.locator("#phone_secondary").fill("")
+        }
+
         await this.page.locator("#email").fill(rep.email);
 
         await this.page.locator("#country").selectOption(rep.country);
@@ -59,7 +65,7 @@ class Representative extends WebPage {
 
         if (input) {
             // Set the file to upload
-            await input.setInputFiles(this.data.rep_auth_applicant);
+            await input.setInputFiles(this.args.rep_auth_applicant);
         } else {
             console.error('File input element not found');
         }
@@ -74,7 +80,7 @@ class Representative extends WebPage {
 
         if (input) {
             // Set the file to upload
-            await input.setInputFiles(this.data.rep_auth_employer);
+            await input.setInputFiles(this.args.rep_auth_employer);
         } else {
             console.error('File input element not found');
         }

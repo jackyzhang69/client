@@ -22,42 +22,42 @@ const accommodationSchema = yup.object().shape({
     rate: yup.number().when('provide_accommodation', {
         is: true,
         then: () => yup.number().required(),
-        otherwise: () => yup.number().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     unit: yup.string().oneOf(["Month", "Week", "Other"]).when('provide_accommodation', {
         is: true,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     type: yup.string().oneOf(["Apartment", "DormRoom", "House", "Other"]).when('provide_accommodation', {
         is: true,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     bedrooms: yup.number().when('provide_accommodation', {
         is: true,
         then: () => yup.number().required(),
-        otherwise: () => yup.number().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     occupants: yup.number().when('provide_accommodation', {
         is: true,
         then: () => yup.number().required(),
-        otherwise: () => yup.number().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     bathrooms: yup.number().when('provide_accommodation', {
         is: true,
         then: () => yup.number().required(),
-        otherwise: () => yup.number().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     description: yup.string().when('provide_accommodation', {
         is: true,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     why_not_provide: yup.string().when('provide_accommodation', {
         is: false,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     })
 }).required();
 
@@ -77,12 +77,12 @@ const capSchema = yup.object().shape({
     which_exemption: yup.string().when('is_cap_exempted', {
         is: true,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     exemption_details: yup.string().when('is_cap_exempted', {
         is: true,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     in_seasonal_industry: yup.boolean().when(
         'is_cap_exempted', {
@@ -94,13 +94,13 @@ const capSchema = yup.object().shape({
         'is_cap_exempted', {
         is: false,
         then: (data) => data.matches(/^\d{4}-\d{2}-\d{2}$/, 'Invalid date format. Must be "YYYY-MM-DD"').required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     end_date: yup.string().when(
         'is_cap_exempted', {
         is: false,
         then: (data) => data.matches(/^\d{4}-\d{2}-\d{2}$/, 'Invalid date format. Must be "YYYY-MM-DD"').required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
 
     location_caps: yup.array().of(locationCapSchema).when('is_cap_exempted', {

@@ -9,7 +9,7 @@ const argsSchema = yup.object().shape({
         .when(['lmiaNumber', 'print'], {
             is: (lmiaNumber, print) => lmiaNumber !== null && lmiaNumber !== undefined && lmiaNumber !== '' && !print,
             then: () => yup.number().integer().positive().required('The page number to be skipped to is required'),
-            otherwise: () => yup.number().notRequired()
+            otherwise: () => yup.mixed().notRequired()
         }),
     pdf: yup.boolean().default(false),
     png: yup.boolean().default(false),
@@ -18,12 +18,12 @@ const argsSchema = yup.object().shape({
         .trim()
         .required('Screen snap folder is required')
         .matches(/^\/.*\/[a-zA-Z]*$/, 'Screen snap folder must be a valid path'),
-    upload_folder: yup.string().notRequired(),
+    upload_folder: yup.mixed().notRequired(),
     compensation_justification_doc: yup.string()
         .when("is_part_of_union", {
             is: true,
             then: () => yup.string().required("Compensation justification document is required since the job is in unionized industry"),
-            otherwise: () => yup.string().notRequired()
+            otherwise: () => yup.mixed().notRequired()
         }),
     headless: yup.boolean().default(false),
     slow_mo: yup.number().integer().min(0).default(0),

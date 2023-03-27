@@ -130,7 +130,8 @@ class JobOffer4 extends WebPage {
         const textareas = await this.page.locator('textarea');
         // if require minimum eudcation ,check the education level, refer to the page job offer details: progress 58%
         if (this.data.has_minimum_education_req) {
-            await this.page.check(`(//input[@type='checkbox'])[${this.data.minimum_education_level}]`)
+            // await this.page.check(`(//input[@type='checkbox'])[${this.data.minimum_education_level}]`)
+            await this.page.check(`input[type="checkbox"][value="${this.data.minimum_education_level}"]`)
             await textareas.nth(textarea_no).fill(this.data.minimum_education_details);
             textarea_no++;
         }

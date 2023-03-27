@@ -21,7 +21,7 @@ const activitySchema = yup.object().shape({
     title: yup.string().required(),
     describe: yup.string().required(),
     outcome: yup.string().required(),
-    comments: yup.string().notRequired(),
+    comments: yup.mixed().notRequired(),
 });
 
 const transitionPlanSchema = yup.object().shape({
@@ -31,18 +31,18 @@ const transitionPlanSchema = yup.object().shape({
     exempted_crieria: yup.string().when('exempted_from_tp', {
         is: true,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired()
+        otherwise: () => yup.mixed().notRequired()
     }),
     exemption_details: yup.string().when('exempted_from_tp', {
         is: true,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired()
+        otherwise: () => yup.mixed().notRequired()
     }),
     have_completed_tp: yup.boolean().required(),
     previous_tp_results: yup.string().when('have_completed_tp', {
         is: true,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired()
+        otherwise: () => yup.mixed().notRequired()
     }),
     activities: yup.array().of(activitySchema).min(1).required(),
 }).required();

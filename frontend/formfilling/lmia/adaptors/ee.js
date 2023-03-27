@@ -14,7 +14,7 @@ const eeConvert = (data) => {
 
     const pr = {
         support_pr_only: data.lmiacase.purpose_of_lmia == "Supporting Permanent Resident only",
-        joined_with_another_employer: data.lmiacase.has_another_employer ? true : false,
+        joined_with_another_employer: data.lmiacase.has_another_employer === "Yes" ? true : false,
         who_currently_filling_the_duties: data.position.who_current_fill,
         how_did_you_find_the_tfw: data.position.how_did_you_find,
         previously_employed: data.position.worked_working == "Yes" ? true : false,

@@ -22,7 +22,7 @@ const prSchema = yup.object().shape({
     previous_employment_desc: yup.string().when('previously_employed', {
         is: true,
         then: () => () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     how_did_you_determine_the_tfw: yup.string().required(),
     how_when_offered: yup.string().required(),

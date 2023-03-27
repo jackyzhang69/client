@@ -163,7 +163,8 @@ class Continue extends WebPage {
     async next() {
         if (this.args.isCreate) return; // if it doesn't have previous case, then ignore this page
         await this.page.locator("a:has-text('Continue')").click();
-        await this.page.locator("h3:has-text('Registrant Information')"); // entered the registration page
+        if (this.args.task === "REG") await this.page.locator("h3:has-text('Registrant Information')"); // entered the registration page
+        if (this.args.task === "APP") await this.page.locator("h3:has-text('Applicant Information')"); // entered the registration page
     }
 }
 

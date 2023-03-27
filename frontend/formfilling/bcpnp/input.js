@@ -51,10 +51,18 @@ function getArgs() {
         help: 'Update the existing profile or representative'
     });
 
-    // parser.add_argument('-uf', '--upload_folder', {
-    //     default: path.join(process.cwd(), 'upload'),
-    //     help: 'Folder to upload files'
-    // });
+    parser.add_argument('-ra', '--rep_auth_applicant', {
+        help: 'File path and name for representative authorization form for applicant. Only used for rep task'
+    });
+
+    parser.add_argument('-re', '--rep_auth_employer', {
+        help: 'File path and name for representative authorization form for rep_auth_employer. Only used for rep task'
+    });
+
+    parser.add_argument('-uf', '--upload_folder', {
+        default: path.join(process.cwd(), 'upload'),
+        help: 'Folder to upload files'
+    });
 
     parser.add_argument('-hl', '--headless', {
         action: 'store_true',
@@ -99,24 +107,27 @@ function getArgs() {
     }
 
 
-    if (args.screen_snap_folder && !fs.existsSync(args.screen_snap_folder)) {
+    if ((args.pdf || args.png) && !fs.existsSync(args.screen_snap_folder)) {
         print(`${args.screen_snap_folder} does not exist`, "error");
         process.exit(1);
     }
 
-    // if (args.upload_folder && !fs.existsSync(args.upload_folder)) {
-    //     print(`${args.upload_folder} does not exist`, "error");
-    //     process.exit(1);
-    // }
+    if (args.upload_folder && !fs.existsSync(args.upload_folder)) {
+        print(`${args.upload_folder} does not exist`, "error");
+        process.exit(1);
+    }
 
 
     const config = {
         task: args.task.toUpperCase(),
         source_excel: args.source_excel,
+        rep_auth_employer: args.rep_auth_employer,
+        rep_auth_applicant: args.rep_auth_applicant,
         update: args.update,
         pdf: args.pdf,
         png: args.png,
         screen_snap_folder: args.screen_snap_folder,
+        upload_folder: args.upload_folder,
         headless: args.headless,
         slow_mo: args.slow_mo,
         view_port_size: {
@@ -139,7 +150,6 @@ function getSourceData(args) {
     let schema = {};
     let buildPages = {};
 
-    // 
     switch (args.task.toUpperCase()) {
         case 'PRO':
             const { profileAdaptor } = require("./adaptors/profile")
@@ -166,7 +176,12 @@ function getSourceData(args) {
             buildPages = buildRepPages;
             break;
         case 'APP':
-            print("Not implemented yet", "error");
+            const { appAdaptor } = require("./adaptors/app")
+            const { appSchema } = require('./validators/app');
+            const { buildAppPages } = require('./pagebuilders/app');
+            converted_data = appAdaptor(sourceData);
+            schema = appSchema;
+            buildPages = buildAppPages;
             break;
     }
     return { converted_data, schema, buildPages };

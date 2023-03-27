@@ -39,12 +39,12 @@ const registerSchema = yup.object().shape({
             qualified_supplier: yup.string().when('have_eca', {
                 is: true,
                 then: () => yup.string().required(),
-                otherwise: () => yup.string().notRequired()
+                otherwise: () => yup.mixed().notRequired()
             }),
             certificate_number: yup.string().when('have_eca', {
                 is: true,
                 then: () => yup.string().required(),
-                otherwise: () => yup.string().notRequired()
+                otherwise: () => yup.mixed().notRequired()
             }),
             meet_professional_designation_requirement: yup.boolean().required(),
             professional_designation: yup.string().required(),
@@ -81,17 +81,18 @@ const registerSchema = yup.object().shape({
             meet_regional_requirements: yup.string().required(),
         }),
         language: yup.object().shape({
+            has_english: yup.boolean().required(),
             english: yup.object().shape({
                 test_type: yup.string().required(),
                 date_sign: yup.date().required(),
                 test_report_number: yup.string().when('test_type', {
                     is: 'IELTS',
                     then: () => yup.string().required(),
-                    otherwise: () => yup.string().notRequired()
+                    otherwise: () => yup.mixed().notRequired()
                 }),
                 registration_number: yup.string().when('test_type', {
                     is: 'IELTS',
-                    then: () => yup.string().notRequired(),
+                    then: () => yup.mixed().notRequired(),
                     otherwise: () => yup.string().required()
                 }),
                 pin: yup.string().nullable().when('test_type', {
@@ -119,9 +120,18 @@ const registerSchema = yup.object().shape({
                     then: () => yup.number().min(0).max(9),
                     otherwise: () => yup.number().integer().min(0).max(12).required()
                 })
-            }).nullable(),
+            }).when('has_english', {
+                is: true,
+                then: () => yup.object().required(),
+                otherwise: () => yup.object().nullable()
+            }),
+            has_french: yup.boolean().required(),
             french: yup.object().shape({
-                test_type: yup.string().required(),
+                test_type: yup.string().when('$french', {
+                    is: (value) => value !== null,
+                    then: () => yup.string().required(),
+                    otherwise: () => yup.string()
+                }),
                 date_session: yup.date().required(),
                 attestation_number: yup.string().required(),
                 listening: yup.number().when('test_type', {
@@ -144,7 +154,11 @@ const registerSchema = yup.object().shape({
                     then: () => yup.number().min(0).max(450),
                     otherwise: () => yup.number().integer().min(0).max(20)
                 }).required()
-            }).nullable()
+            }).when('has_french', {
+                is: true,
+                then: () => yup.object().required(),
+                otherwise: () => yup.object().nullable()
+            }),
         }),
         submit: yup.object().shape({
             pa_name: yup.string().required(),
