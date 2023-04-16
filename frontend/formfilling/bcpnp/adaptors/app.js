@@ -3,9 +3,12 @@ Data adaptor for profile page
 */
 
 const { bestMatch } = require("../../libs/utils");
+const { getAddress, is_same_address } = require("../../libs/contact");
 const countries = require("./countries");
 const bccities = require("./bccities");
 const { convertWage } = require("../../libs/utils");
+const { getOptionFromAPI } = require("../../libs/ai"); // using AI to get the option
+
 
 const streams = {
     "EE-Skilled Worker": "Express Entry BC – Skilled Worker",
@@ -152,19 +155,15 @@ const field_of_study_map = {
     "Other": "OTH",
 }
 
-function getSector(industry) {
-    let sector = industry; //TODO: Using AI to get the sector
-    return sector;
+async function getSector(industry) {
+    const option = await getOptionFromAPI(industry, Object.keys(company_indsutry_map));
+    return company_indsutry_map[option];
 }
 
 
-function getFieldofStudy(field) {
-    for (let key in field_of_study_map) {
-        if (key.toLowerCase().includes(field.toLowerCase())) {
-            return field_of_study_map[key];
-        }
-    }
-    return field_of_study_map["Other"];
+async function getFieldofStudy(field) {
+    const option = await getOptionFromAPI(field, Object.keys(field_of_study_map));
+    return field_of_study_map[option];
 }
 
 
@@ -187,8 +186,6 @@ const getHighSchool = (data) => {
 }
 
 
-
-
 const getEducation = (education_level, is_trade) => {
 
     return is_trade && education_level == "Diploma/Certificate" ? education_map[education_level + " (trades)"] : education_map[education_level];
@@ -196,7 +193,7 @@ const getEducation = (education_level, is_trade) => {
 };
 
 
-function getPostSecondaryData(edu) {
+async function getPostSecondaryData(edu) {
     let province = null;
     if (edu.country && edu.country.toUpperCase() === "CANADA" && edu.province) {
         edu.province.length === 2 ?
@@ -212,16 +209,16 @@ function getPostSecondaryData(edu) {
         "city": province === "BC" || province === "British Columbia" ? bestMatch(edu.city, bccities) : edu.city,
         "province": province,
         "level": getEducation(edu.education_level, edu.is_trade),
-        "field_of_study": getFieldofStudy(edu.field_of_study),
+        "field_of_study": await getFieldofStudy(edu.field_of_study),
         "original_field_of_study": edu.field_of_study,
     };
 }
 
-const getBCPostSecondary = (data) => {
+async function getBCPostSecondary(data) {
     let BCPostSecondaries = [];
     for (let edu of data.education) {
         if (post_secondary_levels.includes(edu.education_level) && (edu.province.toUpperCase() === "BC" || edu.province.toUpperCase() === "BRITISH COLUMBIA")) {
-            const bc_post_secondary = getPostSecondaryData(edu)
+            const bc_post_secondary = await getPostSecondaryData(edu)
             BCPostSecondaries.push(bc_post_secondary);
         }
     }
@@ -231,11 +228,11 @@ const getBCPostSecondary = (data) => {
     };
 }
 
-const getCanadaPostSecondary = (data) => {
+async function getCanadaPostSecondary(data) {
     let CanadaPostSecondaries = [];
     for (let edu of data.education) {
         if (post_secondary_levels.includes(edu.education_level) && edu.country.toUpperCase() === "CANADA" && edu.province.toUpperCase() !== "BC" && edu.province.toUpperCase() !== "BRITISH COLUMBIA") {
-            const canada_post_secondary = getPostSecondaryData(edu)
+            const canada_post_secondary = await getPostSecondaryData(edu)
             CanadaPostSecondaries.push(canada_post_secondary);
         }
     }
@@ -245,11 +242,11 @@ const getCanadaPostSecondary = (data) => {
     };
 }
 
-const getInternationalPostSecondary = (data) => {
+async function getInternationalPostSecondary(data) {
     let InternationalPostSecondaries = [];
     for (let edu of data.education) {
         if (post_secondary_levels.includes(edu.education_level) && edu.country.toUpperCase() !== "CANADA") {
-            const international_post_secondary = getPostSecondaryData(edu)
+            const international_post_secondary = await getPostSecondaryData(edu)
             international_post_secondary.country = bestMatch(edu.country, Object.keys(countries));
             InternationalPostSecondaries.push(international_post_secondary);
         }
@@ -410,22 +407,6 @@ const getOtherFamilyInCanada = (data) => {
     };
 }
 
-const getAddress = (address, type) => {
-    for (const addr of address) {
-        if (addr.variable_type === type && addr.street_name) {
-            return {
-                "unit": addr.unit ? addr.unit : "",
-                "street_address": addr.street_number + " " + addr.street_name,
-                "city": addr.city,
-                "province": addr.province,
-                "post_code": addr.post_code,
-                "country": countries[bestMatch(addr.country, Object.keys(countries))],
-            };
-        }
-    }
-}
-
-
 
 const getContact = (data) => {
     for (const contact of data.contact) {
@@ -484,33 +465,67 @@ const getEndDate = (job_duration, job_duration_unit) => {
     return endDateString;
 }
 
-const is_same = (address1, address2) => {
-    return (
-        address1.unit === address2.unit &&
-        address1.street_address === address2.street_address &&
-        address1.city === address2.city &&
-        address1.province === address2.province &&
-        address1.post_code === address2.post_code &&
-        address1.country === address2.country
-    );
+
+const getLanguage = (language, index) => {
+    if (!language || language.length === 0) {
+        return null;
+    }
+    let lang = {};
+    if (index === 0) {
+        lang = language[0];
+    } else if (index === 1) {
+        language.length > 1 ? lang = language[1] : null;
+    }
+
+    if (lang === null) return null;
+
+    let return_language = {
+        test_type: lang.test_type ? lang.test_type : null,
+        test_report_number: lang.registration_number ? lang.registration_number.toString() : null,
+        pin: lang.pin ? lang.pin : null,
+        listening: lang.listening ? lang.listening.toString() : null,
+        reading: lang.reading ? lang.reading.toString() : null,
+        speaking: lang.speaking ? lang.speaking.toString() : null,
+        writting: lang.writting ? lang.writting.toString() : null,
+    };
+
+    if (lang.test_type !== "IELTS" && lang.test_type !== "CELPIP") {
+        return_language["attestation_number"] =
+            lang.registration_number ? lang.registration_number.toString() : null;
+        return_language["date_session"] = lang.test_date;
+    } else {
+        return_language["registration_number"] =
+            lang.registration_number ? lang.registration_number.toString() : null;
+        return_language["date_sign"] = lang.test_date;
+    }
+    if (!return_language.reading || !return_language.listening || !return_language.speaking || !return_language.writting) {
+        return_language = null;
+    }
+
+    return return_language;
 }
 
 
-const appAdaptor = (data) => {
-    const business_address = getAddress(data.eraddress, "business_address");
-    const mailing_address = getAddress(data.eraddress, "mailing_address");
+
+async function appAdaptor(data) {
+    const business_address = getAddress(data.eraddress, "business_address", countries);
+    const mailing_address = getAddress(data.eraddress, "mailing_address", countries);
     const hourly_wage = convertWage(data.joboffer.wage_rate, data.joboffer.wage_unit, "hourly", data.joboffer.hours / data.joboffer.days, data.joboffer.days).amount.toString();
     const annual_wage = convertWage(data.joboffer.wage_rate, data.joboffer.wage_unit, "annually", data.joboffer.hours / data.joboffer.days, data.joboffer.days).amount.toString();
 
-    const bc_post_secondary = getBCPostSecondary(data);
-    const canada_post_secondary = getCanadaPostSecondary(data);
-    const international_post_secondary = getInternationalPostSecondary(data);
+    const bc_post_secondary = await getBCPostSecondary(data);
+    const canada_post_secondary = await getCanadaPostSecondary(data);
+    const international_post_secondary = await getInternationalPostSecondary(data);
 
     const work_experience = getWorkExperience(data);
     const pt_number = data.general.pt_employee_number ? data.general.pt_employee_number : 0
     const ft_number = (data.general.ft_employee_number + pt_number / 2).toString()
 
     const spouse = getSpouse(data);
+    const economic_sector = await getSector(data.general.industry);
+
+    const first_language = getLanguage(data.language, 0);
+    const second_language = getLanguage(data.language, 1);
 
     const appData = {
         "stream": streams[data.bcpnp.case_stream],
@@ -520,6 +535,12 @@ const appAdaptor = (data) => {
         },
         "applicant": {
             "intended_city": data.bcpnp.intended_city,
+            "has_bc_drivers_license": data.bcpnp.has_bc_drivers_license === "Yes" ? true : false,
+            "has_lmia": data.bcpnp.has_lmia === "Yes" ? true : false,
+            "has_first_language": first_language ? true : false,
+            "has_second_language": second_language ? true : false,
+            "did_eca": data.personal.did_eca === "Yes" ? true : false,
+            "regional_exp_alumni": data.bcpnp.regional_exp_alumni == "Yes" ? true : false,
             "about_application": {
                 "q1": data.bcpnp.q1 == "Yes" ? true : false,
                 "q1_explaination": data.bcpnp.q1_explaination,
@@ -592,10 +613,10 @@ const appAdaptor = (data) => {
             "registration_number": data.general.registration_number,
             "fulltime_equivalent": ft_number,
             "establish_year": data.general.establish_date.split("-")[0],
-            "economic_sector": company_indsutry_map[getSector(data.general.industry)],
+            "economic_sector": economic_sector,
             "website": data.general.website,
             "address": business_address,
-            "mailing_is_same_as_business": is_same(business_address, mailing_address),
+            "mailing_is_same_as_business": is_same_address(business_address, mailing_address),
             "mailing_address": mailing_address,
             "employer_contact": getContact(data),
         },
@@ -617,7 +638,7 @@ const appAdaptor = (data) => {
             "has_paid_rep": data.rcic.first_name && data.rcic.last_name ? true : false,
             "rcic_first_name": data.rcic.first_name,
             "rcic_last_name": data.rcic.last_name,
-            "rcic_phone": data.rcic.telephone,
+            "rcic_phone": data.rcic.telephone ? data.rcic.telephone.toString() : "",
         }
     };
 

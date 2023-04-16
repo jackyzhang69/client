@@ -7,7 +7,7 @@ All these pages are common to all the programs.
 */
 
 
-const WebPage = require('../../page');
+const WebPage = require('../../models/page');
 const { selectOptionIncludeText, selectOptionHasSimilarText } = require('../../libs/playwright');
 const { print } = require('../../libs/output');
 

@@ -1,5 +1,5 @@
 
-const WebPage = require('../../page');
+const WebPage = require('../../models/page');
 const { inputDate, inputPhone } = require('./common');
 
 class Joboffer extends WebPage {

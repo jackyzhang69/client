@@ -15,7 +15,7 @@ const {
     jobofferSchema,
     recruitmentSchema
 } = require('./common');
-
+const argsSchema = require('./args');
 
 const accommodationSchema = yup.object().shape({
     provide_accommodation: yup.boolean().required(),

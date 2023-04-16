@@ -13,6 +13,7 @@ const {
     recruitmentSchema
 } = require('./common');
 
+const argsSchema = require('./args');
 const prSchema = yup.object().shape({
     support_pr_only: yup.boolean().required(),
     joined_with_another_employer: yup.boolean().required(),

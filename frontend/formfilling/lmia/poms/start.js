@@ -9,7 +9,7 @@ All these pages are common to all the programs.
 */
 
 
-const WebPage = require('../../page');
+const WebPage = require('../../models/page');
 
 class Login extends WebPage {
     constructor(page, login_data) {

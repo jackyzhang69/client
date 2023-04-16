@@ -3,7 +3,7 @@ Data adaptor for profile page
 */
 
 const { bestMatch } = require("../../libs/utils");
-const Address = require("../../libs/address");
+const { Address } = require("../../libs/contact");
 
 const getPassport = (data) => {
     let passport;

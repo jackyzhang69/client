@@ -2,7 +2,7 @@
     fill the form with the data
 */
 
-const Filler = require('../filler');
+const Filler = require('./filler');
 
 async function fill(args, buildPages) {
 

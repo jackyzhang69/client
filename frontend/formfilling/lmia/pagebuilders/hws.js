@@ -1,6 +1,6 @@
 /* high wage  Stream pages builder. */
 
-const WebPages = require('../../pages');
+const WebPages = require('../../models/pages');
 const { buildStartPages, hoursPayPages, buildJobofferPages, buildRecruitmentPages } = require('./common');
 const { WageCategory } = require('../poms/create');
 const Wage = require('../poms/wage');

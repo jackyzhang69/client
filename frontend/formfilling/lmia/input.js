@@ -12,7 +12,73 @@ const { Excel } = require('../libs/source');
 const { print } = require('../libs/output')
 
 // get args from command line
-function getArgs() {
+function getArgs(parser, arguments) {
+
+    const args = parser.parse_args(arguments);
+
+    // logical check
+    // if lmia is provided, skipToPage must be provided and be greater than 5
+    if (args.lmiaNumber && (!args.skipToPage || args.skipToPage < 5) && !args.print) {
+        print("skipToPage must be provided and be greater than 5. ", "error");
+        print("Exp: use -s 20 to specify skipping to page 20 . ", "info");
+        process.exit(1);
+    }
+
+    // if pdf or pnp is provided, screen_snap_folder must be provided
+    if ((args.pdf || args.png) && !args.screen_snap_folder) {
+        print("screen_snap_folder must be provided if pdf or png is provided. ", "error");
+        print("Exp: use -sf ./screenshots to specify the folder to save screenshots. ", "info");
+        process.exit(1);
+    }
+
+    // check folder,file is valide and exists
+    if (!fs.existsSync(args.source_excel)) {
+        print(`${args.source_excel} file does not exist`, "error");
+        process.exit(1);
+    }
+
+    if (args.compensation_justification_doc && !fs.existsSync(args.compensation_justification_doc)) {
+        print(`${args.compensation_justification_doc} file does not exist`, "error");
+        process.exit(1);
+    }
+
+    if ((args.pdf || args.png) && !fs.existsSync(args.screen_snap_folder)) {
+        print(`${args.screen_snap_folder} does not exist`, "error");
+        process.exit(1);
+    }
+
+    if (args.upload_folder && !fs.existsSync(args.upload_folder)) {
+        print(`${args.upload_folder} does not exist`, "error");
+        process.exit(1);
+    }
+
+
+    const config = {
+        source_excel: args.source_excel,
+        rcic: args.rcic,
+        print: args.print,
+        lmiaNumber: args.lmiaNumber,
+        isCreate: args.lmiaNumber ? false : true,
+        start_skip_page: 5,
+        skipToPage: args.skipToPage,
+        pdf: args.pdf,
+        png: args.png,
+        screen_snap_folder: args.screen_snap_folder,
+        compensation_justification_doc: args.compensation_justification_doc,
+        upload_folder: args.upload_folder,
+        headless: args.headless,
+        slow_mo: args.slow_mo,
+        view_port_size: {
+            width: args.view_port_size[0],
+            height: args.view_port_size[1]
+        },
+        defaultTimeOut: args.defaultTimeOut
+    };
+
+    return config;
+}
+
+function getParser() {
     const parser = new argparse.ArgumentParser({
         description: 'Get args for LMIA web form filler'
     });
@@ -79,69 +145,7 @@ function getArgs() {
         default: 240000,
         help: 'Default timeout in milliseconds'
     });
-
-    const args = parser.parse_args();
-
-    // logical check
-    // if lmia is provided, skipToPage must be provided and be greater than 5
-    if (args.lmiaNumber && (!args.skipToPage || args.skipToPage < 5) && !args.print) {
-        print("skipToPage must be provided and be greater than 5. ", "error");
-        print("Exp: use -s 20 to specify skipping to page 20 . ", "info");
-        process.exit(1);
-    }
-
-    // if pdf or pnp is provided, screen_snap_folder must be provided
-    if ((args.pdf || args.png) && !args.screen_snap_folder) {
-        print("screen_snap_folder must be provided if pdf or png is provided. ", "error");
-        print("Exp: use -sf ./screenshots to specify the folder to save screenshots. ", "info");
-        process.exit(1);
-    }
-
-    // check folder,file is valide and exists
-    if (!fs.existsSync(args.source_excel)) {
-        print(`${args.source_excel} file does not exist`, "error");
-        process.exit(1);
-    }
-
-    if (args.compensation_justification_doc && !fs.existsSync(args.compensation_justification_doc)) {
-        print(`${args.compensation_justification_doc} file does not exist`, "error");
-        process.exit(1);
-    }
-
-    if ((args.pdf || args.png) && !fs.existsSync(args.screen_snap_folder)) {
-        print(`${args.screen_snap_folder} does not exist`, "error");
-        process.exit(1);
-    }
-
-    if (args.upload_folder && !fs.existsSync(args.upload_folder)) {
-        print(`${args.upload_folder} does not exist`, "error");
-        process.exit(1);
-    }
-
-
-    const config = {
-        source_excel: args.source_excel,
-        rcic: args.rcic,
-        args: {
-            print: args.print,
-            lmiaNumber: args.lmiaNumber,
-            skipToPage: args.skipToPage,
-            pdf: args.pdf,
-            png: args.png,
-            screen_snap_folder: args.screen_snap_folder,
-            compensation_justification_doc: args.compensation_justification_doc,
-            upload_folder: args.upload_folder,
-            headless: args.headless,
-            slow_mo: args.slow_mo,
-            view_port_size: {
-                width: args.view_port_size[0],
-                height: args.view_port_size[1]
-            },
-            defaultTimeOut: args.defaultTimeOut
-        }
-    };
-
-    return config;
+    return parser;
 }
 
 async function getLoginData(rcic) {
@@ -173,9 +177,8 @@ async function getLoginData(rcic) {
 }
 
 
-function getSourceData(source_excel) {
-    // const excel = new Excel("/Users/jacky/Desktop/5593.xlsx");
-    const excel = new Excel(source_excel);
+async function getSourceData(args) {
+    const excel = new Excel(args.source_excel);
     let sourceData = excel.json();
 
     // 1.5 get which stream to fill
@@ -188,48 +191,42 @@ function getSourceData(source_excel) {
 
     // herer, stream is original defined in the excel file
     switch (stream) {
-        case 'EE':
-            const { eeConvert } = require("./adaptors/ee")
-            const eeSchema = require('./validators/ee');
-            const buildEEPages = require('./pagebuilders/ee');
+        case "EE":
+            const { eeConvert } = require("./adaptors/ee");
+            const eeSchema = require("./validators/ee");
+            const buildEEPages = require("./pagebuilders/ee");
             converted_data = eeConvert(sourceData);
             schema = eeSchema;
             buildPages = buildEEPages;
             break;
-        case 'HWS':
-            const { hwsConvert } = require("./adaptors/hws")
-            const hwsSchema = require('./validators/hws');
-            const buildHWSPages = require('./pagebuilders/hws');
+        case "HWS":
+            const { hwsConvert } = require("./adaptors/hws");
+            const hwsSchema = require("./validators/hws");
+            const buildHWSPages = require("./pagebuilders/hws");
             converted_data = hwsConvert(sourceData);
             schema = hwsSchema;
             buildPages = buildHWSPages;
             break;
-        case 'LWS':
-            const { lwsConvert } = require("./adaptors/lws")
-            const lwsSchema = require('./validators/lws');
-            const buildLWSPages = require('./pagebuilders/lws');
+        case "LWS":
+            const { lwsConvert } = require("./adaptors/lws");
+            const lwsSchema = require("./validators/lws");
+            const buildLWSPages = require("./pagebuilders/lws");
             converted_data = lwsConvert(sourceData);
             schema = lwsSchema;
             buildPages = buildLWSPages;
             break;
     }
+    const login_data = await getLoginData(args.rcic);
+    converted_data = { ...converted_data, ...login_data };
+    args["stream"] = converted_data.stream;
+    args["is_part_of_union"] = converted_data.job_offer.is_part_of_union;
     return { converted_data, schema, buildPages };
 }
 
-async function getValidatedData(schema, lmia_data) {
-    schema.validate(lmia_data)
+async function getValidatedData(schema, data, dataName) {
+    schema.validate(data)
         .then(() => {
-            print("\nData validated.\n", style = "success");;
-        }).catch((error) => {
-            print(`${error}`, style = "error");
-            process.exit(1);
-        });
-}
-
-async function getValidatedArgs(schema, args) {
-    schema.validate(args)
-        .then(() => {
-            print("\nArgs validated.\n", style = "success");;
+            print(`\n${dataName} validated.\n`, style = "success");;
         }).catch((error) => {
             print(`${error}`, style = "error");
             process.exit(1);
@@ -238,10 +235,9 @@ async function getValidatedArgs(schema, args) {
 
 
 module.exports = {
+    getParser,
     getArgs,
-    getLoginData,
     getSourceData,
     getValidatedData,
-    getValidatedArgs
 }
 

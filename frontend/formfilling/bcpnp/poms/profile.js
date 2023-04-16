@@ -3,7 +3,7 @@ This includes profile page: create client profile
 
  */
 
-const WebPage = require('../../page');
+const WebPage = require('../../models/page');
 const { print } = require('../../libs/output');
 const { inputDate } = require('./common');
 

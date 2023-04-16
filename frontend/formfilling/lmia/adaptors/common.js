@@ -3,7 +3,7 @@ This is common part of adaptors for LMIA form filling.
 */
 
 const { convertWage, bestMatch } = require("../../libs/utils");
-const Address = require("../../libs/address");
+const { Address } = require("../../libs/contact");
 const countries = require("./countries.json");
 
 const employerContacts = (data) => {
@@ -84,13 +84,14 @@ const locationData = (data) => {
                 address.post_code,
                 address.po_box,
                 address.unit,
-                address.district
+                address.district,
+                address.identifier
             );
 
             const business_op_name = data.general.operating_name || data.general.legal_name;
             const business_activity = data.general.business_intro;
             const safety_concerns = data.lmi.safety_concerns;
-            const addressStr = working_address.getCityAddress();
+            const addressStr = working_address.identifier ? working_address.identifier : working_address.getCityAddress();
             const province = address.province;
 
             return {

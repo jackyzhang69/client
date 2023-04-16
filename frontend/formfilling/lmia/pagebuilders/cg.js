@@ -1,6 +1,6 @@
 /* Care Giver Stream pages builder. */
 
-const WebPages = require('../../pages');
+const WebPages = require('../../models/pages');
 const buildStartPages = require('./common');
 const Wage = require('../poms/wage');
 

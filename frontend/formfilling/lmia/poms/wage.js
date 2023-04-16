@@ -5,7 +5,7 @@ wage: wage information
 */
 
 
-const WebPage = require('../../page');
+const WebPage = require('../../models/page');
 
 class Wage extends WebPage {
     constructor(page, args) {

@@ -120,6 +120,14 @@ async function isElementAttachedToDOM(page, selector) {
     return false;
 }
 
+async function makeCheckboxVisible(page, checkbox) {
+    await page.evaluate((element) => {
+        element.style.display = 'block';
+        element.style.visibility = 'visible';
+        element.style.opacity = '1';
+    }, checkbox);
+}
+
 
 module.exports = {
     DependantSelect,
@@ -127,6 +135,7 @@ module.exports = {
     selectOptionHasSimilarText,
     waitSelectWithText,
     waitSelectWith1MoreOptions,
-    isElementAttachedToDOM
+    isElementAttachedToDOM,
+    makeCheckboxVisible
 };
 

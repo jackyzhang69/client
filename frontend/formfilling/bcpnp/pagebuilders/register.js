@@ -1,6 +1,6 @@
 /* Express Entry Stream pages builder. */
 
-const WebPages = require('../../pages');
+const WebPages = require('../../models/pages');
 const { Login, CaseHistory, Skills, Stream, ProfileRepConfirmation, Continue } = require('../poms/start');
 const { Registrant, Education, WorkExperience, JobOffer, Language, Submit } = require('../poms/registration');
 

@@ -16,6 +16,7 @@
     "playwright-core": "^1.31.0",
     "prettier": "2.8.4",
     "string-similarity": "^4.0.4",
+    "xlsx": "^0.18.5",
     "yup": "^1.0.2"
   },
   "scripts": {

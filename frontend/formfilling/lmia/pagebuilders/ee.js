@@ -1,6 +1,6 @@
 /* Express Entry Stream pages builder. */
 
-const WebPages = require('../../pages');
+const WebPages = require('../../models/pages');
 const { buildStartPages, hoursPayPages, buildJobofferPages, buildRecruitmentPages } = require('./common');
 const Wage = require('../poms/wage');
 const Work = require('../poms/work');

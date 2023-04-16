@@ -13,7 +13,60 @@ const { Excel } = require('../libs/source');
 const { print } = require('../libs/output')
 
 // get args from command line
-function getArgs() {
+function getArgs(parser, arguments) {
+    const args = parser.parse_args(arguments);
+
+    // logical check
+
+    // if pdf or pnp is provided, screen_snap_folder must be provided
+    if ((args.pdf || args.png) && !args.screen_snap_folder) {
+        print("screen_snap_folder must be provided if pdf or png is provided. ", "error");
+        print("Exp: use -sf ./screenshots to specify the folder to save screenshots. ", "info");
+        process.exit(1);
+    }
+
+    // check folder,file is valide and exists
+    if (!fs.existsSync(args.source_excel)) {
+        print(`${args.source_excel} file does not exist`, "error");
+        process.exit(1);
+    }
+
+
+    if ((args.pdf || args.png) && !fs.existsSync(args.screen_snap_folder)) {
+        print(`${args.screen_snap_folder} does not exist`, "error");
+        process.exit(1);
+    }
+
+    if (args.upload_folder && !fs.existsSync(args.upload_folder)) {
+        print(`${args.upload_folder} does not exist`, "error");
+        process.exit(1);
+    }
+
+
+    const config = {
+        task: args.task.toUpperCase(),
+        source_excel: args.source_excel,
+        rep_auth_employer: args.rep_auth_employer,
+        rep_auth_applicant: args.rep_auth_applicant,
+        update: args.update,
+        pdf: args.pdf,
+        png: args.png,
+        screen_snap_folder: args.screen_snap_folder,
+        upload_folder: args.upload_folder,
+        headless: args.headless,
+        slow_mo: args.slow_mo,
+        view_port_size: {
+            width: args.view_port_size[0],
+            height: args.view_port_size[1]
+        },
+        defaultTimeOut: args.defaultTimeOut
+    };
+
+    return config;
+}
+
+
+function getParser() {
     const parser = new argparse.ArgumentParser({
         description: 'Get args for BCPNP web form filler'
     });
@@ -88,60 +141,10 @@ function getArgs() {
         default: 240000,
         help: 'Default timeout in milliseconds'
     });
-
-    const args = parser.parse_args();
-
-    // logical check
-
-    // if pdf or pnp is provided, screen_snap_folder must be provided
-    if ((args.pdf || args.png) && !args.screen_snap_folder) {
-        print("screen_snap_folder must be provided if pdf or png is provided. ", "error");
-        print("Exp: use -sf ./screenshots to specify the folder to save screenshots. ", "info");
-        process.exit(1);
-    }
-
-    // check folder,file is valide and exists
-    if (!fs.existsSync(args.source_excel)) {
-        print(`${args.source_excel} file does not exist`, "error");
-        process.exit(1);
-    }
-
-
-    if ((args.pdf || args.png) && !fs.existsSync(args.screen_snap_folder)) {
-        print(`${args.screen_snap_folder} does not exist`, "error");
-        process.exit(1);
-    }
-
-    if (args.upload_folder && !fs.existsSync(args.upload_folder)) {
-        print(`${args.upload_folder} does not exist`, "error");
-        process.exit(1);
-    }
-
-
-    const config = {
-        task: args.task.toUpperCase(),
-        source_excel: args.source_excel,
-        rep_auth_employer: args.rep_auth_employer,
-        rep_auth_applicant: args.rep_auth_applicant,
-        update: args.update,
-        pdf: args.pdf,
-        png: args.png,
-        screen_snap_folder: args.screen_snap_folder,
-        upload_folder: args.upload_folder,
-        headless: args.headless,
-        slow_mo: args.slow_mo,
-        view_port_size: {
-            width: args.view_port_size[0],
-            height: args.view_port_size[1]
-        },
-        defaultTimeOut: args.defaultTimeOut
-    };
-
-    return config;
+    return parser;
 }
 
-
-function getSourceData(args) {
+async function getSourceData(args) {
     const excel = new Excel(args.source_excel);
     let sourceData = excel.json();
 
@@ -176,10 +179,13 @@ function getSourceData(args) {
             buildPages = buildRepPages;
             break;
         case 'APP':
-            const { appAdaptor } = require("./adaptors/app")
+            const { appAdaptor } = require("./adaptors/app");
+            const { appAttachmentAdaptor } = require("./adaptors/app_attachment");
             const { appSchema } = require('./validators/app');
             const { buildAppPages } = require('./pagebuilders/app');
-            converted_data = appAdaptor(sourceData);
+            converted_data = await appAdaptor(sourceData);
+            let converted_data_attachment = await appAttachmentAdaptor(args, converted_data);
+            converted_data = { ...converted_data, "attachments": converted_data_attachment };
             schema = appSchema;
             buildPages = buildAppPages;
             break;
@@ -200,6 +206,7 @@ async function getValidatedData(schema, data, dataName) {
 
 
 module.exports = {
+    getParser,
     getArgs,
     getSourceData,
     getValidatedData,

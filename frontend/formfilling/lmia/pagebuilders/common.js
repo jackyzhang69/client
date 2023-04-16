@@ -1,6 +1,6 @@
 /* This is the common parts of all  programs, starting from login to pick streams. */
 
-const WebPages = require('../../pages');
+const WebPages = require('../../models/pages');
 const { Login, Security, Terms, EmployerPicker } = require('../poms/start');
 const { Create, EmployerContact, Representative, RepresentativeType, StreamDetermination } = require('../poms/create');
 const { Edit, EnterApplication } = require('../poms/edit');

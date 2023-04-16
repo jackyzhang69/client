@@ -1,5 +1,5 @@
 
-const WebPage = require('../../page');
+const WebPage = require('../../models/page');
 const { inputDate } = require('./common');
 
 class Education extends WebPage {
@@ -21,7 +21,9 @@ class Education extends WebPage {
             hs.completed ?
                 await this.page.locator(`label[for='BCPNP_App_EduSec_Completion-${i}-Yes']`).check()
                 : await this.page.locator(`label[for='BCPNP_App_EduSec_Completion-${i}-Yes']`).uncheck();
-            if (i < this.data.high_school.length - 1) {
+
+            const next_start_date = await this.page.$(`#BCPNP_App_EduSec_From-${i + 1}`); // check if next start date exists, for edit and conver model
+            if (i < this.data.high_school.length - 1 && !next_start_date) {
                 await this.page.locator('a[title="Add secondary education"]').click();
             }
         }

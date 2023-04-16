@@ -2,7 +2,7 @@
 This module is just used for deleting applications, it is not used in the main filling process.
 */
 
-const WebPage = require('../../page');
+const WebPage = require('../../models/page');
 
 class DeleteApplication extends WebPage {
     constructor(page, data) {

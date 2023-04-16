@@ -2,7 +2,7 @@
 This includes application pages of BCPNP
 */
 
-const WebPage = require('../../page');
+const WebPage = require('../../models/page');
 const { inputDate } = require('./common');
 
 class Applicant extends WebPage {
@@ -120,8 +120,11 @@ class Applicant extends WebPage {
 
 
     async make_actions() {
-        // confirm personal information TODO:
-        // await this.page.waitForSelector("#BCPNP_App_Confirm_Information");
+        // confirm information
+        const checkbox = await this.page.waitForSelector("label[for='BCPNP_App_Confirm_Information']");
+        if (!await checkbox.isChecked()) {
+            await checkbox.click();
+        }
         // await this.page.locator("#BCPNP_App_Confirm_Information").check();
         // intended place to residence
         await this.page.waitForSelector("#syncA_App_IntendedResidence");

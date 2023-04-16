@@ -4,9 +4,7 @@ This moduel includes pages:
 
 */
 
-const WebPage = require('../../page');
-const { expect } = require('@playwright/test');
-
+const WebPage = require('../../models/page');
 
 class PR1 extends WebPage {
     constructor(page, args) {

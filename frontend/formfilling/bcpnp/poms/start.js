@@ -2,7 +2,7 @@
 This includes login 
 */
 
-const WebPage = require('../../page');
+const WebPage = require('../../models/page');
 
 class Login extends WebPage {
     constructor(page, args) {

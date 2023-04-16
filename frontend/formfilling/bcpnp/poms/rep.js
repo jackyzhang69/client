@@ -2,7 +2,7 @@
 This includes representative page
 
  */
-const WebPage = require('../../page');
+const WebPage = require('../../models/page');
 const { print } = require('../../libs/output');
 
 class Representative extends WebPage {
