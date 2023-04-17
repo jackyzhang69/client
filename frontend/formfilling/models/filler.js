@@ -29,7 +29,7 @@ class Filler {
         await this.handle_pages(webpages.pages);
 
         // Stop tracing and export it into a zip archive.
-        await context.tracing.stop({ path: "/Users/jacky/desktop/trace.zip" });
+        await context.tracing.stop({ path: "trace.zip" });
 
         await context.close();
         await browser.close();
@@ -49,17 +49,17 @@ class Filler {
                 || page_no < this.args.start_skip_page
                 || page_no > skipToPage
             ) {
-                print(`Hanlding page #${page_no}: ${web_page.name}    ${web_page.description}`);
+                print(`Hanlding page #${page_no}:` + " ".repeat(5 - page_no.toString().length) + `${web_page.description}`);
                 await web_page.make_actions();
             } else {
-                print(`Skipping page #${page_no}: ${web_page.name}    ${web_page.description}`);
+                print(`Skipping page #${page_no}:` + " ".repeat(5 - page_no.toString().length) + `${web_page.description}`);
             }
 
             if (this.args.pdf) {
-                await web_page.save_pdf(`${this.args.screen_snap_folder}/${web_page.name}`);
+                await web_page.save_pdf(`${this.args.screen_snap_folder}/${"p" + page_no.toString() + "_" + web_page.name}`);
             }
             if (this.args.png) {
-                await web_page.save_img(`${this.args.screen_snap_folder}/${web_page.name}`);
+                await web_page.save_img(`${this.args.screen_snap_folder}/${"p" + page_no.toString() + "_" + web_page.name}`);
             }
             await web_page.next();
         }

@@ -20,7 +20,7 @@ class WebPage {
 
     // got to the previous page in the workflow. If it's the first page, then do nothing.
     // Normally, this method is not used. So here it is not abstract
-    async previous() {}
+    async previous() { }
 
     // got to the next page in the workflow. If it's the last page, then do nothing
     async next() {
@@ -32,7 +32,7 @@ class WebPage {
     }
 
     async save_img(name) {
-        await this.page.screenshot({ path: `${name}.png` });
+        await this.page.screenshot({ path: `${name}.png`, fullPage: true });
     }
 
     async save_pdf(name) {

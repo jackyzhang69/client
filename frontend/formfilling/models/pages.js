@@ -21,6 +21,14 @@ class WebPages {
         return { value, done: false };
     }
 
+    // add other webpages object to this object
+    add(other) {
+        if (!(other instanceof WebPages)) {
+            throw new TypeError('Parameter must be an instance of WebPages');
+        }
+        return new WebPages(this.pages.concat(other.pages));
+    }
+
     toString() {
         return this.pages.map((page) => page.name).join(", ");
     }
@@ -53,7 +61,7 @@ class WebPages {
     print_page_list() {
         print("\nPage list\n", "info");
         for (const index in this.pages) {
-            let row = `${index}: ${this.pages[index].name} - ${this.pages[index].description}`;
+            let row = `${index}:` + " ".repeat(5 - index.toString().length) + `${this.pages[index].description}`;
             print(row);
         }
     }
