@@ -1,6 +1,6 @@
 /* Global Talent Stream pages builder */
 
-const WebPages = require('../../pages');
+const WebPages = require('../../models/pages');
 const buildStartPages = require('./common');
 const { GTSCategory } = require('../poms/create');
 const Wage = require('../poms/wage');

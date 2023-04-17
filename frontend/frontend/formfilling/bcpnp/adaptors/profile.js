@@ -3,7 +3,7 @@ Data adaptor for profile page
 */
 
 const { bestMatch } = require("../../libs/utils");
-const Address = require("../../libs/address");
+const { Address } = require("../../libs/contact");
 
 const getPassport = (data) => {
     let passport;
@@ -87,7 +87,7 @@ const profileAdaptor = (data) => {
     const password = `Super${currentYear}!`;
     const user_id = data.personal.last_name[0] + data.personal.first_name[0] + data.personal.dob.replace(/-/g, "");
     const has_used_name = data.personal.used_last_name && data.personal.used_first_name ? true : false;
-    const countries = require("./counties.json");
+    const countries = require("./countries.json");
     const country_of_birth = countries[bestMatch(data.personal.country_of_birth, Object.keys(countries))];
 
     const profile = {

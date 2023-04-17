@@ -2,9 +2,9 @@
 This includes registrant
 */
 
-const WebPage = require('../../page');
+const WebPage = require('../../models/page');
 const { print } = require('../../libs/output');
-
+const { inputDate, inputPhone } = require('./common');
 
 class Registrant extends WebPage {
     constructor(page, args) {
@@ -315,16 +315,9 @@ class Submit extends WebPage {
     }
 }
 
-async function inputDate(page, selector, the_date) {
-    await page.click(selector, { clickCount: 3 });
-    await page.keyboard.type(the_date);
-    await page.keyboard.press('Enter');
-}
 
-async function inputPhone(page, selector, phone) {
-    await page.click(selector, { clickCount: 2 });
-    await page.keyboard.type(phone);
-}
+
+
 
 
 module.exports = { Registrant, Education, WorkExperience, JobOffer, Language, Submit };

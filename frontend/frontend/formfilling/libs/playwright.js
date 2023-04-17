@@ -120,6 +120,52 @@ async function isElementAttachedToDOM(page, selector) {
     return false;
 }
 
+async function makeElementVisible(page, element) {
+    await page.evaluate((element) => {
+        element.style.display = 'block';
+        element.style.visibility = 'visible';
+        element.style.opacity = '1';
+    }, element);
+}
+
+/*
+get a type of actionable element with text in a row with text in a table
+for example: get a button with text "Edit" in a row with text "John" in a table
+
+*/
+
+async function getActionableElementInRow(tableLocator, rowText, actionableElementText, actionableElementType) {
+    const actionableElement = await tableLocator.locator("tbody tr")
+        .filter({ hasText: rowText })
+        .getByRole(actionableElementType, { name: actionableElementText })
+        .first();
+    return actionableElement;
+}
+
+async function inputDate(page, selector, the_date) {
+    await page.click(selector, { clickCount: 3 });
+    await page.keyboard.type(the_date);
+    await page.keyboard.press('Enter');
+}
+
+async function inputPhone(page, selector, phone) {
+    await page.click(selector, { clickCount: 2 });
+    await page.keyboard.type(phone);
+}
+
+async function selectRelatedDropdown(page, firstDropdownSelector, secondDropdownSelector, firstValue, secondValue) {
+    // Wait for the first dropdown list to load and select the specified value
+    await page.waitForSelector(firstDropdownSelector);
+    await page.selectOption(firstDropdownSelector, { label: firstValue });
+
+    // Wait for the second dropdown list to load options based on the selected value
+    await page.waitForSelector(secondDropdownSelector, { state: 'attached' });
+
+    await page.selectOption(secondDropdownSelector, { label: secondValue });
+}
+
+
+
 
 module.exports = {
     DependantSelect,
@@ -127,6 +173,11 @@ module.exports = {
     selectOptionHasSimilarText,
     waitSelectWithText,
     waitSelectWith1MoreOptions,
-    isElementAttachedToDOM
+    isElementAttachedToDOM,
+    makeElementVisible,
+    getActionableElementInRow,
+    inputDate,
+    inputPhone,
+    selectRelatedDropdown
 };
 

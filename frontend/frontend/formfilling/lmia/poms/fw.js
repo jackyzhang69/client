@@ -4,7 +4,7 @@ This moduel includes pages:
 
 */
 
-const WebPage = require('../../page');
+const WebPage = require('../../models/page');
 const { expect } = require('@playwright/test');
 
 // Provide the names of TFW 

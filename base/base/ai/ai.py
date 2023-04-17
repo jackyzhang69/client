@@ -23,4 +23,13 @@ def get_ai_answer(
 
     return data
 
-
+def get_ai_chat_answer(prompt,model="gpt-4",answer_is_json=True):
+    completion = openai.ChatCompletion.create(
+        model=model,
+        messages=[
+            {"role": "user", "content": prompt},
+        ]
+    )
+    raw_text= completion.choices[0].message.content
+    data = json.loads(raw_text) if answer_is_json else raw_text
+    return data

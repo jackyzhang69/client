@@ -1743,6 +1743,12 @@ class CellFormatter:
                 "display_type": {
                     "width": 20,
                 },
+                "identifier": {
+                    "comment": [
+                        "Copy from job bank's Location identifier if the identifier exists",
+                        "从Jobbank的Location identifier copy过来",
+                    ],
+                },
             },
             "table-family": {
                 "translate": [
@@ -1762,9 +1768,11 @@ class CellFormatter:
                 },
                 "date_of_birth": {
                     "validation": v.date_format,
+                    "style": date_format,
                 },
                 "date_of_death": {
                     "validation": v.date_format,
+                    "style": date_format,
                 },
                 "marital_status": {
                     "validation": v.marital_status,
@@ -2113,7 +2121,7 @@ class CellFormatter:
             },
             "table-sponsorincome": {
                 "ei_regualar_benefits": {
-                    "comment": ["Refer to NOA " "line 11900", "参考NOA第11900行"],
+                    "comment": ["Refer to NOA line 11900", "参考NOA第11900行"],
                     "validation": v.positive_int_include_zero,
                     "style": money_format_int,
                     "width": 15,
@@ -2125,13 +2133,13 @@ class CellFormatter:
                     "width": 15,
                 },
                 "prov_payment_training": {
-                    "comment": ["Refer to  " "(T4A-Box 028)", "参考 (T4A-Box " "028)"],
+                    "comment": ["Refer to  (T4A-Box 028)", "参考 (T4A-Box " "028)"],
                     "validation": v.positive_int_include_zero,
                     "style": money_format_int,
                     "width": 25,
                 },
                 "prov_social_assistanance": {
-                    "comment": ["Refer to " "NOA line " "14500", "参考NOA第14500行"],
+                    "comment": ["Refer to NOA line 14500", "参考NOA第14500行"],
                     "validation": v.positive_int_include_zero,
                     "style": money_format_int,
                     "width": 15,
@@ -2142,7 +2150,7 @@ class CellFormatter:
                     "width": 15,
                 },
                 "total_income": {
-                    "comment": ["Refer to the Line 15000 " "in NOA", "参考NOA第15000行"],
+                    "comment": ["Refer to the Line 15000 in NOA", "参考NOA第15000行"],
                     "validation": v.positive_int_include_zero,
                     "style": money_format_int,
                     "width": 15,
@@ -2168,67 +2176,51 @@ class CellFormatter:
                 "destination": {"width": 20},
                 "purpose": {"width": 20},
             },
-            "info-prrenew":{
-                "situation":{
-                    "validation":v.pr_renew_situation
+            "info-prrenew": {
+                "is_urgent": {
+                    "validation": v.yes_no,
                 },
-                "language":{
-                    "validation":v.english_or_french
+                "has_PRTD": {
+                    "validation": v.yes_no,
                 },
-                "date_became_pr":{
+                "situation": {"validation": v.pr_renew_situation},
+                "language": {"validation": v.english_or_french},
+                "date_became_pr": {
                     "validation": v.date_format,
                     "style": date_format,
                 },
-                "province_became_pr":{
-                    "validation":v.canada_provinces_full
-                },
-                "name_changed":{
-                    "validation":v.yes_no  
-                },
-                "had_removal_order":{
-                    "validation":v.yes_no  
-                },
-                "had_inadmissibility_report":{
-                    "validation":v.yes_no  
-                },
-                "had_lost_pr_status":{
-                    "validation":v.yes_no  
-                },
-                "submitted_appeal":{
-                    "validation":v.yes_no  
-                },
-                "PRTD":{
-                    "validation":v.pr_travel_document
-                },
-                "traveled_outside_canada":{
-                    "validation":v.pr_travel_document
-                },
-                "employed_outside_canada":{
-                    "validation":v.pr_travel_document
-                },
-                "accompanied_canadian_citizen":{
-                    "validation":v.pr_travel_document
-                },
-                "accompanied_pr":{
-                    "validation":v.pr_travel_document
-                },
+                "province_became_pr": {"validation": v.canada_provinces_full},
+                "name_changed": {"validation": v.yes_no},
+                "had_removal_order": {"validation": v.yes_no},
+                "had_inadmissibility_report": {"validation": v.yes_no},
+                "had_lost_pr_status": {"validation": v.yes_no},
+                "submitted_appeal": {"validation": v.yes_no},
+                "PRTD": {"validation": v.pr_travel_document},
+                "traveled_outside_canada": {"validation": v.yes_no},
+                "employed_outside_canada": {"validation": v.yes_no},
+                "accompanied_canadian_citizen": {"validation": v.yes_no},
+                "accompanied_pr": {"validation": v.yes_no},
+                "has_humanitarian_reason": {"validation": v.yes_no},
             },
-            "table-absence":{
+            "table-absence": {
                 "title_note": [
                     "1. Only fill in the past 5 years  or since your landing date if less than 5 years you became PR",
                     "1. 只填写过去5年的不在加拿大的记录; 或者自从你成为PR以后,如果你成为PR不足5年的话",
                 ],
-                "start_date":{
+                "start_date": {
                     "validation": v.date_format,
                     "style": date_format,
                 },
-                "end_date":{
+                "end_date": {
                     "validation": v.date_format,
                     "style": date_format,
                 },
-                "reason":{
-                    "validation":v.pr_absence_reasons,
-                    "comment":["A: Full-time Canadian employment.B: With Canadian spouse/parent.C: With PR spouse/parent in Canadian employment.Other: Work, study, vacation.","A: 在加拿大公司全职工作。B: 与加拿大配偶/父母在一起。C: 与在加拿大就业的PR配偶/父母一起。其他： 工作、学习、度假。"]
-                }
-            }
+                "reason": {
+                    "validation": v.pr_absence_reasons,
+                    "comment": [
+                        "A: Full-time Canadian employment.B: With Canadian spouse/parent.C: With PR spouse/parent in Canadian employment.Other: Work, study, vacation.",
+                        "A: 在加拿大公司全职工作。B: 与加拿大配偶/父母在一起。C: 与在加拿大就业的PR配偶/父母一起。其他： 工作、学习、度假。",
+                    ],
+                },
+            },
         }

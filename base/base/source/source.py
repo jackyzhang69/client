@@ -77,13 +77,7 @@ class Source:
 
     @property
     def glossary(self):
-        import os
-        current_directory = os.getcwd()
-        print(current_directory)
-        glossary=os.path.join(current_directory, "glossary.json")
-        with open(glossary, "r") as f:
-            glossary = json.load(f)
-
+        from base.source.glossary import glossary
         return glossary
 
     """ Translate excel forms description,titles in another language, and return a new excel obj """

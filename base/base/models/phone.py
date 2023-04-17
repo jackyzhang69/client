@@ -34,7 +34,7 @@ class Phone(BaseModel, EqMixin):
 
     @property
     def international_format_full(self):
-        return "+" + self.country_code + " " + self.number
+        return "+" + str(self.country_code) + " " + self.number
 
     @property
     def isCanadaUs(self):

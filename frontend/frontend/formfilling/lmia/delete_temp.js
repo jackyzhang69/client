@@ -1,6 +1,6 @@
 /* This is the main entry point for all page forms filling. */
 
-const WebPages = require('../pages');
+const WebPages = require('../../models/pages');
 const { Login, Security, Terms, EmployerPicker } = require('./poms/start');
 const { DeleteApplication } = require('./poms/delete');
 const Filler = require('../filler');
@@ -60,12 +60,12 @@ async function main() {
         skipPagesRange: [6, 38],
         pdf: false,
         png: false,
-        screen_snap_folder: path.join(__dirname, '/screenshots'),
-        upload_folder: "/Users/jacky/Desktop/trv",
+        screen_snap_folder: path.join(__dirname, "/screenshots"),
+        upload_folder: ".",
         headless: true,
         slow_mo: 0,
         view_port_size: { width: 1000, height: 1440 },
-        defaultTimeOut: 30000
+        defaultTimeOut: 30000,
     };
     filler = new Filler(args);
 

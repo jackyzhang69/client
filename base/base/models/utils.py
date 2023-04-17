@@ -152,7 +152,6 @@ class DurationClass(BaseModel):
 def checkRow(values: dict, all_fields: List[str], required_fields: List[str]):
     all_fields_values = [values.get(field, None) for field in all_fields]
     required_values = [values.get(field, None) for field in required_fields]
-
     if any(all_fields_values) and not all(required_values):
         missed_fields = [
             field for field in required_fields if values.get(field) == None

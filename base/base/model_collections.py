@@ -90,9 +90,9 @@ helps = {
         title,
         make,
         check,
-        word("--rciccompany, --tempnum", "Make resume word"),
+        word("--rciccompany, --tempnum", "Make job ad word"),
     ],
-    "recruit-jo": [title, make, check, word("--tempnum", "Make resume word")],
+    "recruit-jo": [title, make, check, word("--tempnum", "Make job offer word")],
     "recruit-rs": [title, make, check, word("", "Make recruitment summary doc")],
     "bcpnp-ci": [title, make, check, word("", "Make company brief word")],
     "bcpnp-ert": [title, make, check, word("", "Make Employer Training doc")],
@@ -135,17 +135,14 @@ helps = {
 }
 
 
-def get_models(
-    rcic_company_id_name: str = "noah",
-    temp_num: int = 1
-):
+def get_models(rcic_company_id_name: str = "noah", temp_num: int = 1):
     models = {
         "exp-rs": {
             "path": "base.models.experience.resume",
             "class_list": ["ResumeModel", "ResumeModelE"],
             "remark": "Experience module for Resume model",
             "docx_template": {
-                "rs":  f"word/resume-regular{temp_num}.docx",
+                "rs": f"word/resume-regular{temp_num}.docx",
             },
             "help": {
                 "description": "This model can make and check excel model, and generate resume and employment certificate docx ",
@@ -158,7 +155,7 @@ def get_models(
             "class_list": ["JobadModel", "JobadModelE"],
             "remark": "Recruit module for Job Advertisement model",
             "docx_template": {
-                "ja":  "word/jobad.docx",
+                "ja": "word/jobad.docx",
             },
             "help": {
                 "description": "This model can make and check excel model, and generate job advertisement docx ",
@@ -170,7 +167,7 @@ def get_models(
             "class_list": ["JobofferModel", "JobofferModelE"],
             "remark": "Recruitment module for Job Offer model",
             "docx_template": {
-                "jo":  f"word/joboffer{temp_num}.docx",
+                "jo": f"word/joboffer{temp_num}.docx",
             },
             "help": {
                 "description": "This model can make and check excel model, and generate job offer docx ",
@@ -182,7 +179,7 @@ def get_models(
             "class_list": ["RecruitmnetSummaryModel", "RecruitmnetSummaryModelE"],
             "remark": "Recruitment module for Recruitment Summary model",
             "docx_template": {
-                "ja":  "word/lmia-rs.docx",
+                "rs": "word/lmia-rs.docx",
             },
             "help": {
                 "description": "This model can make and check excel model, and generate LMIA recruitment summary docx ",
@@ -214,9 +211,9 @@ def get_models(
             "path": "lmia.model.m5593",
             "class_list": ["M5593Model", "M5593ModelE"],
             "docx_template": {
-                "rs":  "word/lmia-rs.docx",
-                "et":  "word/5593-et.docx",
-                "sl":  f"word/5593-sl-{rcic_company_id_name}.docx",
+                "rs": "word/lmia-rs.docx",
+                "et": "word/5593-et.docx",
+                "sl": f"word/5593-sl-{rcic_company_id_name}.docx",
             },
             "remark": "LMIA module for EE doc generation application",
             "web_function": "Yes ",
@@ -229,9 +226,9 @@ def get_models(
             "path": "lmia.model.m5626",
             "class_list": ["M5626Model", "M5626ModelE"],
             "docx_template": {
-                "rs":  "word/lmia-rs.docx",
-                "et":  "word/5626-et.docx",
-                "sl":  f"word/5626-sl-{rcic_company_id_name}.docx",
+                "rs": "word/lmia-rs.docx",
+                "et": "word/5626-et.docx",
+                "sl": f"word/5626-sl-{rcic_company_id_name}.docx",
             },
             "web_function": "Yes ",
             "remark": "LMIA module for HWS application",
@@ -244,9 +241,9 @@ def get_models(
             "path": "lmia.model.m5627",
             "class_list": ["M5627Model", "M5627ModelE"],
             "docx_template": {
-                "rs":  "word/lmia-rs.docx",
-                "et":  "word/5627-et.docx",
-                "sl":  f"word/5627-sl-{rcic_company_id_name}.docx",
+                "rs": "word/lmia-rs.docx",
+                "et": "word/5627-et.docx",
+                "sl": f"word/5627-sl-{rcic_company_id_name}.docx",
             },
             "web_function": "Yes ",
             "remark": "LMIA module for LWS application",
@@ -270,7 +267,7 @@ def get_models(
             "class_list": ["CompanyInfoModel", "CompanyInfoModel_E"],
             "remark": "BCPNP module for Company Info model",
             "docx_template": {
-                "bcpnp-ci":  "word/bcpnp_company_information.docx",
+                "bcpnp-ci": "word/bcpnp_company_information.docx",
             },
             "help": {
                 "description": "This model can make and check excel model, and generate BCPNP company brief docx ",
@@ -282,7 +279,7 @@ def get_models(
             "class_list": ["EmployerTrainingModel", "EmployerTrainingModelE"],
             "remark": "BCPNP module for Employer Training model",
             "docx_template": {
-                "bcpnp-ert":  "word/bcpnp-ert.docx",
+                "bcpnp-ert": "word/bcpnp-ert.docx",
             },
             "help": {
                 "description": "This model can make and check excel model, and generate BCPNP employer training docx ",
@@ -294,7 +291,7 @@ def get_models(
             "class_list": ["EmployeeTrainingModel", "EmployeeTrainingModelE"],
             "remark": "BCPNP module for Employee Training model",
             "docx_template": {
-                "bcpnp-eet":  "word/bcpnp-eet.docx",
+                "bcpnp-eet": "word/bcpnp-eet.docx",
             },
             "help": {
                 "description": "This model can make and check excel model, and generate BCPNP employee training docx ",
@@ -306,7 +303,7 @@ def get_models(
             "class_list": ["JobDescriptionModel", "JobDescriptionModelE"],
             "remark": "BCPNP module for Job Description model",
             "docx_template": {
-                "bcpnp-jd":  "word/bcpnp-jd.docx",
+                "bcpnp-jd": "word/bcpnp-jd.docx",
             },
             "help": {
                 "description": "This model can make and check excel model, and generate BCPNP Job Description docx ",
@@ -331,7 +328,7 @@ def get_models(
             "class_list": ["RecommendationLetterModel", "RecommendationLetterModelE"],
             "remark": "BCPNP module for Recommendation Letter model",
             "docx_template": {
-                "bcpnp-rl":  "word/bcpnp-rl.docx",
+                "bcpnp-rl": "word/bcpnp-rl.docx",
             },
             "help": {
                 "description": "This model can make and check excel model, and generate BCPNP Employer Recommendation Letter docx ",
@@ -419,7 +416,7 @@ def get_models(
             "class_list": ["M5669Model", "M5669ModelE"],
             "remark": "PR module for form 5669 model",
         },
-        "pgp-assess":{
+        "pgp-assess": {
             "path": "pgp.model.assess",
             "class_list": ["YearlySummary", "YearlySummaryE"],
             "remark": "PGP egligibility assessment model",
@@ -429,9 +426,7 @@ def get_models(
             "path": "tr.model.m1294",
             "class_list": ["M1294Model", "M1294ModelE"],
             "pdf_function": "Yes",
-            "docx_template": {
-                "sl":  f"word/1294-sl-{rcic_company_id_name}.docx"
-            },
+            "docx_template": {"sl": f"word/1294-sl-{rcic_company_id_name}.docx"},
             "remark": "TR module for form 1294 model",
         },
         "0104": {
@@ -450,9 +445,7 @@ def get_models(
             "path": "tr.model.m1295",
             "class_list": ["M1295Model", "M1295ModelE"],
             "pdf_function": "Yes",
-            "docx_template": {
-                "sl":  f"word/1295-sl-{rcic_company_id_name}.docx"
-            },
+            "docx_template": {"sl": f"word/1295-sl-{rcic_company_id_name}.docx"},
             "remark": "TR module for form 1295 model",
         },
         "5257": {
@@ -465,9 +458,7 @@ def get_models(
             "path": "tr.model.m5708",
             "class_list": ["M5708Model", "M5708ModelE"],
             "pdf_function": "Yes",
-            "docx_template": {
-                "sl":  f"word/5708-sl-{rcic_company_id_name}.docx"
-            },
+            "docx_template": {"sl": f"word/5708-sl-{rcic_company_id_name}.docx"},
             "remark": "TR module for form 5708 model",
         },
         "5709": {

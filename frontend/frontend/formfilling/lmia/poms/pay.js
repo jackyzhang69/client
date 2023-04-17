@@ -4,7 +4,7 @@ This moduel includes pages:
 
 */
 
-const WebPage = require('../../page');
+const WebPage = require('../../models/page');
 
 class HoursPay1 extends WebPage {
     constructor(page, previous_obj, args) {

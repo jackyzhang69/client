@@ -1,6 +1,6 @@
 /* Express Entry Stream pages builder. */
 
-const WebPages = require('../../pages');
+const WebPages = require('../../models/pages');
 const { Representative } = require('../poms/rep');
 const { Login } = require('../poms/start');
 

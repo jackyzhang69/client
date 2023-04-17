@@ -7,7 +7,7 @@ All these pages are common to all the programs.
 */
 
 
-const WebPage = require('../../page');
+const WebPage = require('../../models/page');
 const { selectOptionIncludeText, selectOptionHasSimilarText } = require('../../libs/playwright');
 const { print } = require('../../libs/output');
 
@@ -52,24 +52,25 @@ class EmployerContact extends WebPage {
 
         let contact_num = this.data.length > 2 ? 2 : this.data.length
         for (let i = 0; i < contact_num; i++) {
-            const name = this.data[i];;
-            // check if contact is already existed. If yes, skip it. used only for edit mode
-            if (this.edit_model) {
+            const name = this.data[i].toLowerCase();
+            // check if contact is already existed. If yes, skip it. used for edit mode or if use inputed duplicated contacts
+            let contactExists = false;
+            if (i !== 0) {
                 await this.page.waitForSelector('#contactTable', { timeout: 5000 });
                 const tableElement = await this.page.$('#contactTable');
                 if (!tableElement) continue;
 
                 const tdElements = await tableElement.$$('td');
-                let contactExists = false;
                 for (const tdElement of tdElements) {
-                    const textContent = await tdElement.textContent();
+                    let textContent = await tdElement.textContent();
+                    textContent = textContent.toLowerCase();
                     if (textContent.includes(name)) {
                         contactExists = true;
                         break;
                     }
                 }
-                if (contactExists) continue;
             }
+            if (contactExists) continue;
 
             try {
                 // below is normal create model

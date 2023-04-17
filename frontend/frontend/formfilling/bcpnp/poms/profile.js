@@ -3,8 +3,9 @@ This includes profile page: create client profile
 
  */
 
-const WebPage = require('../../page');
+const WebPage = require('../../models/page');
 const { print } = require('../../libs/output');
+const { inputDate } = require('./common');
 
 class Profile extends WebPage {
     constructor(page, args) {
@@ -186,13 +187,6 @@ class ProfileUpdate extends Profile {
             print("There are something wrong. Please check...", "error");
         }
     }
-}
-
-
-async function inputDate(page, selector, the_date) {
-    await page.click(selector, { clickCount: 3 });
-    await page.keyboard.type(the_date);
-    await page.keyboard.press('Enter');
 }
 
 

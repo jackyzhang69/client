@@ -84,6 +84,8 @@ class RecruitmnetSummaryModel(BaseModel, BuilderModel):
     def context(self, *args, **kwargs):
         interview = InterviewRecords(self.interviewrecord)
         primary_contact = Contacts(self.contact).primary
+        median_wage = float(self.lmiacase.provincial_median_wage)
+        hourly_rate = float(self.joboffer.hourly_rate)
         return {
             **self.dict(),
             "num_of_job_posts": Advertisements(self.advertisement).amount,
@@ -96,9 +98,7 @@ class RecruitmnetSummaryModel(BaseModel, BuilderModel):
                 }
                 for a in self.advertisement
             ],
-            "high_wage": True
-            if float(self.joboffer.hourly_rate) >= self.lmiacase.provincial_median_wage
-            else False,
+            "high_wage": True if float(self.joboffer.hourly_rate) >= self.lmiacase.provincial_median_wage else False,
             "rs": {
                 "resume_num": interview.resume_num,
                 "canadian_num": interview.canadian_num,

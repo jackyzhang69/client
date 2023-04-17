@@ -57,7 +57,14 @@ class Excel {
                     for (let j = 0; j < variables.length; j++) {
                         // Check if the value is a date
                         const cell = worksheet[XLSX.utils.encode_cell({ r: i, c: j })];
-                        const column_value = (cell && cell.v) ? cell.v : undefined;
+
+                        let column_value;
+                        if (cell && (cell.v === 0 || cell.v === '0')) {
+                            column_value = cell.v;
+                        } else {
+                            column_value = (cell && cell.v) ? cell.v : undefined;
+                        }
+
                         if (date_indexes.includes(j)) {
                             if (column_value === undefined || column_value === null || column_value === "") {
                                 row[variables[j]] = null;

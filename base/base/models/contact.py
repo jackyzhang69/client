@@ -20,7 +20,12 @@ class ContactBase(BaseModel):
         required_fields = ["last_name", "first_name", "phone", "email"]
         variable_type = values.get("variable_type")
         if variable_type == "primary":
-            checkRow(values, all_fields, required_fields)
+            required_values = [values.get(field, None) for field in required_fields]
+            if  not all(required_values):
+                missed_fields = [
+                    field for field in required_fields if values.get(field) == None
+                ]
+                raise ValueError(f"Required fileds are missed ({', '.join(missed_fields)}...).")
         return values
 
     @property

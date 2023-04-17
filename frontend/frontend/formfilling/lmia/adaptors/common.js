@@ -3,7 +3,7 @@ This is common part of adaptors for LMIA form filling.
 */
 
 const { convertWage, bestMatch } = require("../../libs/utils");
-const Address = require("../../libs/address");
+const { Address } = require("../../libs/contact");
 const countries = require("./countries.json");
 
 const employerContacts = (data) => {
@@ -84,13 +84,14 @@ const locationData = (data) => {
                 address.post_code,
                 address.po_box,
                 address.unit,
-                address.district
+                address.district,
+                address.identifier
             );
 
             const business_op_name = data.general.operating_name || data.general.legal_name;
             const business_activity = data.general.business_intro;
             const safety_concerns = data.lmi.safety_concerns;
-            const addressStr = working_address.getCityAddress();
+            const addressStr = working_address.identifier ? working_address.identifier : working_address.getCityAddress();
             const province = address.province;
 
             return {
@@ -160,18 +161,21 @@ const hoursAndPayData = (data) => {
         explaination: hourlyRate.explaination
     }
 
+    const daily_hours = data.joboffer.hours / data.joboffer.days;
+    const ot_rate = data.joboffer.ot_ratio * wage.amount;
+
     return {
         has_same_position: data.position.has_same == "Yes" ? true : false,
-        lowest: data.position.lowest,
-        highest: data.position.highest,
+        lowest: data.position.lowest ? data.position.lowest.toString() : null,
+        highest: data.position.highest ? data.position.highest.toString() : null,
         without_standard_schedule: data.joboffer.atypical_schedule == "Yes" ? true : false,
         schedule_details: data.joboffer.atypical_schedule_explain,
-        daily_hours: (data.joboffer.hours / data.joboffer.days).toString(),
-        weekly_hours: data.joboffer.hours.toString(),
+        daily_hours: daily_hours ? daily_hours.toString() : null,
+        weekly_hours: data.joboffer.hours ? data.joboffer.hours.toString() : null,
         not_full_time_position: data.joboffer.hours < 30,
         not_ft_reason: data.joboffer.part_time_explain,
         has_overtime_rate: true,  // it's the must, or we can't submit the form
-        ot_rate: (data.joboffer.ot_ratio * wage.amount).toString(),
+        ot_rate: ot_rate ? ot_rate.toString() : null,
         ot_determined_by: data.joboffer.ot_after_hours_unit == "day" ? 0 : 1,
         contingent_wage: false, // TODO: So far, we don't have this info
         contingent_wage_details: ""

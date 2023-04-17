@@ -3,6 +3,17 @@ const WebPage = require('../../models/page');
 const { selectRelatedDropdown, getActionableElementInRow } = require('../../libs/playwright');
 const { print } = require('../../libs/output');
 
+const get_role_data = (args, role, index = 1) => {
+    switch (role) {
+        case "PA":
+            return args.data.imm0008.pa;
+        case "SP":
+            return args.data.imm0008.sp;
+        case "DP":
+            return args.data.imm0008.dp[index - 1];
+    }
+}
+
 class Dashboard0008 extends WebPage {
     constructor(page, args) {
         super(page, "dashboard0008", "Dash board enter imm0008", args.data.imm0008);
@@ -34,9 +45,10 @@ class Imm0008Intro extends WebPage {
 }
 
 class ApplicationDetail extends WebPage {
-    constructor(page, data, role, index = 1) {
-        super(page, "applicant_details_0008", "Imm0008 application details", data.application_details);
+    constructor(page, args, role, index = 1) {
+        super(page, "applicant_details_0008", "Imm0008 application details", get_role_data(args, role).application_details);
         this.role = role;
+        this.args = args;
     }
 
     async make_actions() {
@@ -54,10 +66,11 @@ class ApplicationDetail extends WebPage {
 }
 
 class PersonalDetails0008 extends WebPage {
-    constructor(page, data, role, index = 1) {
-        if (role === "DP") role = `${role}${index}`
-        super(page, `${role.toLowerCase()}_personal_details_0008`, `${role} imm0008 personal details`, data.personal_details);
+    constructor(page, args, role, index = 1) {
+        const role1 = role === "DP" ? `${role}${index}` : role;
+        super(page, `${role1.toLowerCase()}_personal_details_0008`, `${role1} imm0008 personal details`, get_role_data(args, role, index).personal_details);
         this.role = role;
+        this.args = args;
     }
 
     // only for dependants
@@ -230,9 +243,10 @@ class PersonalDetails0008 extends WebPage {
 }
 
 class ContactInformation extends WebPage {
-    constructor(page, data, role, index = 1) {
-        super(page, "contact_info_0008", "Imm0008 contact information", data.contact_info);
+    constructor(page, args, role, index = 1) {
+        super(page, "contact_info_0008", "Imm0008 contact information", get_role_data(args, role, index).contact_info);
         this.role = role;
+        this.args = args;
     }
 
     // mailing address
@@ -338,10 +352,11 @@ class ContactInformation extends WebPage {
 }
 
 class Passport extends WebPage {
-    constructor(page, data, role, index = 1) {
-        if (role === "DP") role = `${role}${index}`
-        super(page, `${role.toLowerCase()}_passport_0008`, `${role} imm0008 passport`, data.passport);
+    constructor(page, args, role, index = 1) {
+        const role1 = role === "DP" ? `${role}${index}` : role;
+        super(page, `${role1.toLowerCase()}_passport_0008`, `${role1} imm0008 passport`, get_role_data(args, role, index).passport);
         this.role = role;
+        this.args = args;
     }
 
     async make_actions() {
@@ -370,10 +385,11 @@ class Passport extends WebPage {
 }
 
 class Id extends WebPage {
-    constructor(page, data, role, index = 1) {
-        if (role === "DP") role = `${role}${index}`
-        super(page, `${role.toLowerCase()}_national_id_0008`, `${role} imm0008 National Id`, data.passport);
+    constructor(page, args, role, index = 1) {
+        const role1 = role === "DP" ? `${role}${index}` : role;
+        super(page, `${role1.toLowerCase()}_national_id_0008`, `${role1} imm0008 National Id`, get_role_data(args, role, index).passport);
         this.role = role;
+        this.args = args;
     }
 
     async make_actions() {
@@ -412,10 +428,11 @@ class Id extends WebPage {
 }
 
 class Education0008 extends WebPage {
-    constructor(page, data, role, index = 1) {
-        if (role === "DP") role = `${role}${index}`
-        super(page, `${role.toLowerCase()}_education_0008`, `${role} imm0008 education`, data.education);
+    constructor(page, args, role, index = 1) {
+        const role1 = role === "DP" ? `${role}${index}` : role;
+        super(page, `${role1.toLowerCase()}_education_0008`, `${role1} imm0008 education`, get_role_data(args, role, index).education);
         this.role = role;
+        this.args = args;
     }
 
     async make_actions() {
@@ -438,10 +455,11 @@ class Education0008 extends WebPage {
 }
 
 class Language extends WebPage {
-    constructor(page, data, role, index = 1) {
-        if (role === "DP") role = `${role}${index}`
-        super(page, `${role.toLowerCase()}_language_0008`, `${role} imm0008 language`, data.language);
+    constructor(page, args, role, index = 1) {
+        const role1 = role === "DP" ? `${role}${index}` : role;
+        super(page, `${role1.toLowerCase()}_language_0008`, `${role1} imm0008 language`, get_role_data(args, role, index).language);
         this.role = role;
+        this.args = args;
     }
 
     async make_actions() {
@@ -457,7 +475,7 @@ class Language extends WebPage {
     async next() {
         if (this.role === "PA") {
             await this.page.getByRole('button', { name: 'Save and continue' }).click();
-            await this.page.waitForSelector("button:has-text(' Add dependants ')");
+            await this.page.waitForSelector("button:has-text(' Complete and return to application ')");
         } else {
             await this.page.getByRole('button', { name: 'Continue' }).click()
             await this.page.waitForSelector('h2:has-text("Passport Details")');
@@ -465,10 +483,37 @@ class Language extends WebPage {
     }
 }
 
-class Hub0008 extends WebPage {
-    constructor(page, data, role) {
-        super(page, `${role.toLowerCase()}_0008`, `${role} imm0008`, data);
+class Dependants extends WebPage {
+    constructor(page, args, role, index = 1) {
+        const role1 = role === "DP" ? `${role}${index}` : role;
+        super(page, `${role1.toLowerCase()}_dependants_0008`, `${role1} imm0008 dependants`, get_role_data(args, role, index).dependants);
         this.role = role;
+        this.args = args;
+    }
+
+    async make_actions() {
+
+    }
+
+    async next() {
+        if (this.role === "PA") {
+            if (!this.args.data.imm0008.sp && !this.args.data.imm0008.dp) {
+                if (await this.page.locator("label[for='dependantNo']").isEnabled()) await this.page.locator("label[for='dependantNo']").check();
+                await this.page.waitForSelector("//button[text()=' Complete and return to application '][not(@disabled)]");
+            } else {
+                await this.page.locator("label[for='dependantYes']").check();
+                await this.page.waitForSelector("button:has-text(' Add dependants ')");
+            }
+        }
+    }
+
+}
+
+class Hub0008 extends WebPage {
+    constructor(page, args, role, index = 1) {
+        super(page, `${role.toLowerCase()}_0008`, `${role} imm0008`, get_role_data(args, role, index));
+        this.role = role;
+        this.args = args;
         this.create = true;
     }
 
@@ -504,6 +549,24 @@ class Hub0008 extends WebPage {
             const deleteButton = await getActionableElementInRow(table, "Missing Information", 'Delete', 'button');
             await deleteButton.click();
             await this.page.locator("button.btn-primary:has-text('Delete')").click();
+
+            // Check if the custom alert is present
+            const alertSelector = 'lib-alert div[role="alertdialog"].alert-card';
+            const alertCloseButtonSelector = 'lib-alert button.alert-close-button';
+
+            await this.page.waitForSelector(alertSelector, { timeout: 5000 });
+            if (await this.page.$(alertSelector)) {
+                // Extract the alert message text
+                const alertMessage = await this.page.$eval(`${alertSelector} p.alert-text`, (element) => element.textContent);
+                if (!alertMessage.includes("The dependant is successfully deleted.")) {
+                    print(`Tried to delete previously filled incompleted data but failed.`, "warning");
+                    break;
+                }
+                print(`The prviously filled incompleted data was successfully deleted.`, "info");
+                // Click the close button to dismiss the custom alert
+                await this.page.click(alertCloseButtonSelector);
+            }
+
         }
     }
 
@@ -533,13 +596,6 @@ class BackToDashboard0008 extends WebPage {
         // await this.page.waitForSelector("button:has-text('Complete and return to application')");
         await this.page.locator("//button[text()=' Complete and return to application ']").click();
         await this.page.waitForSelector("h3:has-text('Application forms')");
-        // if (await button.isEnabled()) {
-        //     await button.click();
-        //     await this.page.waitForSelector("h3:has-text('Application forms')");
-        // } else {
-        //     console.log("Button is disabled");
-        // }
-
     }
 }
 
@@ -551,6 +607,7 @@ module.exports = {
     PersonalDetails0008,
     Education0008,
     Language,
+    Dependants,
     Passport,
     Id,
     Hub0008,

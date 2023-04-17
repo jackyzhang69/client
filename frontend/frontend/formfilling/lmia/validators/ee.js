@@ -13,6 +13,7 @@ const {
     recruitmentSchema
 } = require('./common');
 
+const argsSchema = require('./args');
 const prSchema = yup.object().shape({
     support_pr_only: yup.boolean().required(),
     joined_with_another_employer: yup.boolean().required(),
@@ -22,7 +23,7 @@ const prSchema = yup.object().shape({
     previous_employment_desc: yup.string().when('previously_employed', {
         is: true,
         then: () => () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     how_did_you_determine_the_tfw: yup.string().required(),
     how_when_offered: yup.string().required(),

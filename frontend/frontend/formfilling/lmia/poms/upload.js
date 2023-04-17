@@ -6,12 +6,11 @@ All these pages are common to all the programs.
 */
 
 
-const WebPage = require('../../page');
+const WebPage = require('../../models/page');
 const { getFilesInFolder } = require('../../libs/utils');
-const { isElementAttachedToDOM } = require('../../libs/playwright');
 const path = require('path');
 const { print } = require('../../libs/output');
-const { expect } = require('@playwright/test');
+
 
 
 class Upload extends WebPage {

@@ -23,8 +23,8 @@ error_style = Style(color="red")
 success_style = Style(color="green")
 env_server = os.getenv("server")
 
-SERVER_URL = env_server if env_server else "https://imm.jackyzhang.pro/"
-# SERVER_URL = env_server if env_server else "http://127.0.0.1:8000/"
+#SERVER_URL = env_server if env_server else "http://127.0.0.1:8000/"
+SERVER_URL = env_server if env_server else "https://api.jackyzhang.pro/"
 
 # imm account
 imm_account: str = config.get("imm_user")

@@ -14,5 +14,16 @@ build_client:
 	pip install -r ~/client/client/requirements.txt
 	
 
+copy_bcpnp:
+	rm -rf ~/client/frontend/formfilling/bcpnp
+	cp -Rf "${HOME}/imm/frontend/formfilling/bcpnp" ~/client/frontend/formfilling/bcpnp
+
+copy_lmia:
+	rm -rf ~/client/frontend/formfilling/lmia
+	cp -Rf "${HOME}/imm/frontend/formfilling/lmia" ~/client/frontend/formfilling/lmia
+
+copy_pr:
+	rm -rf ~/client/frontend/formfilling/pr
+	cp -Rf "${HOME}/imm/frontend/formfilling/pr" ~/client/frontend/formfilling/pr
 
 

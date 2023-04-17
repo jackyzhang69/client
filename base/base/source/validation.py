@@ -18,9 +18,9 @@ class Validation:
     pr_renew_situation={
         "validate": "list",
         "source": ([
-            " Renew your present PR card ",
-            " Replace a lost, stolen or damaged PR card ",
-            " Obtain your first PR card "
+            "Renew your present PR card",
+            "Replace a lost, stolen or damaged PR card",
+            "Obtain your first PR card"
         ])
     }
     pr_travel_document =    {
@@ -140,7 +140,7 @@ class Validation:
     }
     payment_way = {
         "validate": "list",
-        "source": ["weekly", "bi-weekly", "monthly"],
+        "source": ["weekly", "bi-weekly", "semi-monthly","monthly"],
     }
 
     lmia_duration_unit = {"validate": "list", "source": ["months", "years"]}

@@ -39,12 +39,12 @@ const registerSchema = yup.object().shape({
             qualified_supplier: yup.string().when('have_eca', {
                 is: true,
                 then: () => yup.string().required(),
-                otherwise: () => yup.string().notRequired()
+                otherwise: () => yup.mixed().notRequired()
             }),
             certificate_number: yup.string().when('have_eca', {
                 is: true,
                 then: () => yup.string().required(),
-                otherwise: () => yup.string().notRequired()
+                otherwise: () => yup.mixed().notRequired()
             }),
             meet_professional_designation_requirement: yup.boolean().required(),
             professional_designation: yup.string().required(),
@@ -88,11 +88,11 @@ const registerSchema = yup.object().shape({
                 test_report_number: yup.string().when('test_type', {
                     is: 'IELTS',
                     then: () => yup.string().required(),
-                    otherwise: () => yup.string().notRequired()
+                    otherwise: () => yup.mixed().notRequired()
                 }),
                 registration_number: yup.string().when('test_type', {
                     is: 'IELTS',
-                    then: () => yup.string().notRequired(),
+                    then: () => yup.mixed().notRequired(),
                     otherwise: () => yup.string().required()
                 }),
                 pin: yup.string().nullable().when('test_type', {

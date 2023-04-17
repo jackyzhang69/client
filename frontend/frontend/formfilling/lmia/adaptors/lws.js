@@ -29,7 +29,7 @@ const lwsConvert = (data) => {
         "rate": d.rent_amount ? d.rent_amount.toString() : null,
         "unit": d.rent_unit ? titleCase(d.rent_unit) : null,
         "type": d.accommodation_type ? houseTypeMap[d.accommodation_type] : null,
-        "bedrooms": d.bedrooms ? bedrooms.toString() : null,
+        "bedrooms": d.bedrooms ? d.bedrooms.toString() : null,
         "occupants": d.people ? d.people.toString() : null,
         "bathrooms": d.bathrooms ? d.bathrooms.toString() : null,
         "description": d.explain,

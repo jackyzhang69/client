@@ -292,9 +292,17 @@ class AreaOutlook(BaseModel):
 
     @property
     def outlook(self):
-        outlook = self.data_set[self.noc_code][self.er_code]["outlook"]
+        map={
+            "undetermined":"0",
+            "very limited":"1",
+            "limited":"2",
+            "moderate":"3",
+            "good":"4",
+            "very good":"5",
+        }
+        outlook = self.data_set[self.noc_code][self.er_code]["outlook"].lower()
         comment = self.data_set[self.noc_code][self.er_code]["comment"]
-        return Outlook(outlook=outlook, comment=comment)
+        return Outlook(outlook=map.get(outlook,"N/A"), comment=comment)
 
     @property
     def er_name(self):

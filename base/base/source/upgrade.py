@@ -83,12 +83,15 @@ class OldExcel:
     def _read_sheet(self, sheet):
         values = list(self.wb[sheet].values)
         """ clean data by removing None """
-        values = [x for x in values if self._notNone(x)]
+        values = [x[0:4] for x in values if self._notNone(x)]
         sheet_title = values[0][0]
         column_titiles = list(values[1])
         column_titiles[1] = "Index"  # upgrade the index column title
         column_variable = [str(var) for var in values[2]]
         column_variable[1] = "index"  # upgrade the index column variable
+        column_variable = [
+            v.lower() for v in column_variable
+        ]  # make sure all variables are lower case, since earlier version may have some upper case variables
         data = []
         for data_row in values[3:]:
             data_row = list(data_row)
@@ -113,8 +116,16 @@ class OldExcel:
     # read table sheet data from excel
     def _read_table(self, table):
         values = list(self.wb[table].values)
-        """ clean data by removing None """
+        # get the vairables number
+        variables_number = len([x for x in values[2] if x != None])
+
+        """ clean data by removing None rows"""
         values = [x for x in values if self._notNone(x)]
+
+        """  # get ride of possible additional columns"""
+        values = [columns[0:variables_number] for columns in values]
+
+        # get the table title, column titles and column variables
         table_title = values[0][0]
         column_titles = values[1]
         column_variable = values[2]

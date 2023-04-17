@@ -36,7 +36,7 @@ const streamSchema = yup.object().shape({
             otherwise: () => yup.string().when('name', {
                 is: 'Wage',
                 then: () => yup.string().oneOf(['HWS', 'LWS'], 'Category must be "HWS" or "LWS".').required(),
-                otherwise: () => yup.string().notRequired(),
+                otherwise: () => yup.mixed().notRequired(),
             }),
         }),
     }),
@@ -51,7 +51,7 @@ const wageSchema = yup.object().shape({
     explaination: yup.string().when('isConverted', {
         is: true,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
 }).required();
 
@@ -111,14 +111,14 @@ const hoursPaySchema = yup.object().shape({
     }),
     highest: yup.string().when('has_same_position', {
         is: true,
-        then: () => yup.number().moreThan(yup.ref('lowest'), 'Must be greater than lowest').required(),
+        then: () => yup.number().min(yup.ref('lowest'), 'Must be greater than or equal to the lowest').required(),
         otherwise: () => yup.number().notRequired(),
     }),
     without_standard_schedule: yup.boolean().required(),
     schedule_details: yup.string().when('without_standard_schedule', {
         is: true,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     daily_hours: yup.mixed().test('is-number-with-string-format', 'Must be a valid number but in string format', value => isNumberWithStringFormat(value)).required(),
     weekly_hours: yup.mixed().test('is-number-with-string-format', 'Must be a valid number but in string format', value => isNumberWithStringFormat(value)).required(),
@@ -126,7 +126,7 @@ const hoursPaySchema = yup.object().shape({
     not_ft_reason: yup.string().when('not_full_time_position', {
         is: true,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     has_overtime_rate: yup.boolean().required(),
     ot_rate: yup.string().when('has_overtime_rate', {
@@ -143,7 +143,7 @@ const hoursPaySchema = yup.object().shape({
     contingent_wage_details: yup.string().when('contingent_wage', {
         is: true,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
 }).required();
 
@@ -167,14 +167,14 @@ const jobofferSchema = yup.object().shape({
     reason_for_no: yup.string().when('require_special_language', {
         is: (require_special_language) => require_special_language === 2,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
 
     require_other_language: yup.boolean().required(),
     other_language: yup.string().when('require_other_language', {
         is: true,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     has_minimum_education_req: yup.boolean().required(),
     minimum_education_level: yup.number().when('has_minimum_education_req', {
@@ -190,7 +190,7 @@ const jobofferSchema = yup.object().shape({
     license_req_details: yup.string().when('has_license_req', {
         is: true,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     is_part_of_union: yup.boolean().required(),
     will_provide_benefits: yup.boolean().required(),
@@ -202,7 +202,7 @@ const jobofferSchema = yup.object().shape({
     other_benefits_details: yup.string().when('has_other_benefits', {
         is: true,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     vacation_days: yup.mixed().test('is-number-with-string-format', 'Must be a valid number but in string format', value => isNumberWithStringFormat(value)).required(),
     vacation_pay_percentage: yup.mixed().test('is-number-with-string-format', 'Must be a valid number but in string format', value => isNumberWithStringFormat(value)).required(),
@@ -215,7 +215,7 @@ const recruitmentSchema = yup.object().shape({
     waivable_rationale: yup.string().when('job_ad_waivable', {
         is: true,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     provide_recruitment_details: yup.boolean().when(
         'job_ad_waivable', {
@@ -235,18 +235,18 @@ const recruitmentSchema = yup.object().shape({
     why_not_use_jobbank: yup.string().when('using_jobbank', {
         is: false,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     job_creation: yup.boolean().required(),
     job_creation_details: yup.string().when('job_creation', {
         is: true,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     jobbank_posting_no: yup.string().when('using_jobbank', {
         is: true,
         then: () => yup.number().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     resumes_received: yup.mixed().test('is-number-with-string-format', 'Must be a valid number but in string format', value => isNumberWithStringFormat(value)).required(),
     canadians_interviewed: yup.mixed().test('is-number-with-string-format', 'Must be a valid number but in string format', value => isNumberWithStringFormat(value)).required(),
@@ -260,54 +260,54 @@ const recruitmentSchema = yup.object().shape({
     why_not_attempted_to_recruit_canadians: yup.string().when(["job_ad_waivable", "recruited_canadian"], {
         is: (job_ad_waivable, recruited_canadian) => job_ad_waivable === false && recruited_canadian === false,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     transfer_skills: yup.boolean().required(),
     transfer_skills_details: yup.string().when('transfer_skills', {
         is: true,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     fill_labour_shortage: yup.boolean().required(),
     fill_labour_shortage_details: yup.string().when('fill_labour_shortage', {
         is: true,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     other_benefits: yup.string(),
     laid_off: yup.boolean().required(),
     laid_off_canadians: yup.string().when('laid_off', {
         is: true,
         then: () => yup.number().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     laid_off_tfw: yup.string().when('laid_off', {
         is: true,
         then: () => yup.number().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     laid_off_reason: yup.string().when('laid_off', {
         is: true,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     lead_to_job_losss: yup.boolean().required(),
     lead_to_job_losss_details: yup.string().when('lead_to_job_losss', {
         is: true,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     receive_support_from_esdc: yup.boolean().required(),
     receive_support_from_esdc_details: yup.string().when('receive_support_from_esdc', {
         is: true,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
     labour_dispute: yup.boolean().required(),
     labour_dispute_details: yup.string().when('labour_dispute', {
         is: true,
         then: () => yup.string().required(),
-        otherwise: () => yup.string().notRequired(),
+        otherwise: () => yup.mixed().notRequired(),
     }),
 });
 
