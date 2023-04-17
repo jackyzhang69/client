@@ -68,7 +68,7 @@ const locationCapSchema = yup.object().shape({
     D: yup.number().integer().positive().min(0).required(),
     E: yup.number().integer().positive().required(),
     F: yup.number().integer().positive().min(0).required(),
-    G: yup.number().integer().positive().min(0).required(),
+    G: yup.number().positive().min(0).required(),
     H: yup.number().integer().positive().min(0).required(),
 }).required();
 

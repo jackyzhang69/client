@@ -480,19 +480,22 @@ class BackToDashboard5669 extends WebPage {
     }
 
     async next() {
-        await this.page.locator("//button[text()=' Go back ']").click();
+        try {
+            await this.page.locator("//button[text()=' Go back ']").click();
+            // sometimes, the page will ask if you want to leave the page, so we have to handle that
+            const result = await Promise.race([
+                this.page.waitForSelector("h3:has-text('Application forms')"),
+                this.page.waitForSelector("#goBackModalId__body")
+            ])
+            const result_text = await result.innerText();
 
-        // sometimes, the page will ask if you want to leave the page, so we have to handle that
-        const result = await Promise.race([
-            this.page.waitForSelector("h3:has-text('Application forms')"),
-            this.page.waitForSelector("#goBackModalId__body")
-        ])
-        const result_text = await result.innerText();
-
-        if (result_text.includes("Are you sure you want to leave this page?")) {
-            await this.page.locator("button.btn.btn-secondary").last().click();
+            if (result_text.includes("Are you sure you want to leave this page?")) {
+                await this.page.locator("button.btn.btn-secondary").last().click();
+            }
+            await this.page.waitForSelector("h3:has-text('Application forms')");
+        } catch (e) {
+            print("Imm5669 forms filled, but failed to go back to dashboard", "warning");
         }
-        await this.page.waitForSelector("h3:has-text('Application forms')");
     }
 }
 

@@ -1,6 +1,8 @@
 /* Page login */
 const WebPage = require('../../models/page');
 const { getActionableElementInRow, inputDate, makeElementVisible } = require('../../libs/playwright');
+const { print } = require('../../libs/output')
+
 
 class Login extends WebPage {
     constructor(page, args) {
@@ -76,8 +78,13 @@ class ApplicationPicker extends WebPage {
 
     async next() {
         const table = await this.page.locator('table').first();
-        const editButton = await getActionableElementInRow(table, "jacky@gmail.com", 'View', 'link'); // TODO: get email from args
-        await editButton.click();
+        const editButton = await getActionableElementInRow(table, this.args.client_account, 'View', 'link');
+        if (await editButton.count() === 1) {
+            await editButton.click();
+        } else {
+            print("No application found, please check principle applicant's email address", "error");
+            process.exit(1);
+        }
         await this.page.waitForSelector("h1:has-text('Permanent residence application')");
     }
 }

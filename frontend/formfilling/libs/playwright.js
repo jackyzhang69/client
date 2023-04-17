@@ -138,9 +138,10 @@ async function getActionableElementInRow(tableLocator, rowText, actionableElemen
     const actionableElement = await tableLocator.locator("tbody tr")
         .filter({ hasText: rowText })
         .getByRole(actionableElementType, { name: actionableElementText })
-        .first();
+        .first()
     return actionableElement;
 }
+
 
 async function inputDate(page, selector, the_date) {
     await page.click(selector, { clickCount: 3 });

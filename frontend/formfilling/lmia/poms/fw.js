@@ -20,13 +20,13 @@ class ForeignWorkerProvideName extends WebPage {
 
     async next() {
         await this.page.click("#next");
-        const add_page = await this.page.locator("label.required:has-text('The LMIA Online includes a feature allowing you to add')");
-        const not_add_page = await this.page.locator("h2:has-text('High-wage Transition Plan')")
-        if (this.stream.category == "HWS") this.data.provide_name ? await expect(add_page).toBeVisible() : await expect(not_add_page).toBeVisible();
+        if (this.stream.category == "HWS") this.data.provide_name ?
+            await this.page.waitForSelector("label.required:has-text('The LMIA Online includes a feature allowing you to add')")
+            : await this.page.waitForSelector("h2:has-text('High-wage Transition Plan')")
 
-        const lws_add_page = await this.page.locator("input[type=radio][value=Yes]");
-        const lws_not_add_page = await this.page.locator("label.required:has-text('Will you provide the TFW with suitable and affordable accommodations?')");
-        if (this.stream.category == "LWS") this.data.provide_name ? await expect(lws_add_page).toBeVisible() : await expect(lws_not_add_page).toBeVisible();
+        if (this.stream.category == "LWS") this.data.provide_name ?
+            await this.page.waitForSelector("input[type=radio][value=Yes]")
+            : await this.page.waitForSelector("label.required:has-text('Will you provide the TFW with suitable and affordable accommodations?')");
 
     }
 }

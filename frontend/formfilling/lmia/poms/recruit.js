@@ -230,15 +230,8 @@ class Recruitment2 extends WebPage {
         await this.page.click("#next");
         // wait for the next page to load
         this.data.transfer_skills ?
-            await this.page.waitForFunction(() => {
-                const elements = Array.from(document.querySelectorAll('*'));
-                return elements.some(element => element.textContent.includes('Please provide details to explain why hiring a TFW will result in the development or transfer of skills'));
-            })
-            :
-            await this.page.waitForFunction(() => {
-                const elements = Array.from(document.querySelectorAll('*'));
-                return elements.some(element => element.textContent.includes('Will hiring a TFW fill a labour shortage'));
-            });
+            await this.page.waitForSelector("label:has-text('Please provide details to explain why hiring a TFW will result in the development or transfer of skills')")
+            : await this.page.waitForSelector("label:has-text('Will hiring a TFW fill a labour shortage')");
     }
 }
 
@@ -260,15 +253,8 @@ class Recruitment3 extends WebPage {
         await this.page.click("#next");
         // wait for the next page to load
         this.data.fill_labour_shortage ?
-            await this.page.waitForFunction(() => {
-                const elements = Array.from(document.querySelectorAll('*'));
-                return elements.some(element => element.textContent.includes('Please provide details to explain why hiring a TFW will result in the development or transfer of skills'));
-            })
-            :
-            await this.page.waitForFunction(() => {
-                const elements = Array.from(document.querySelectorAll('*'));
-                return elements.some(element => element.textContent.includes('Will hiring a TFW fill a labour shortage'));
-            });
+            await this.page.waitForSelector("label:has-text('Please provide details to explain why hiring a TFW will fill labour shortage.')")
+            : await this.page.waitForSelector("label:has-text('Please describe any other benefits to the Canadian labour market that will result from offering this job to a TFW.')");
     }
 }
 
@@ -295,15 +281,8 @@ class Recruitment4 extends WebPage {
         await this.page.click("#next");
         // wait for the next page to load
         this.data.laid_off ?
-            await this.page.waitForFunction(() => {
-                const elements = Array.from(document.querySelectorAll('*'));
-                return elements.some(element => element.textContent.includes('How many Canadians/permanent residents did you lay off'));
-            })
-            :
-            await this.page.waitForFunction(() => {
-                const elements = Array.from(document.querySelectorAll('*'));
-                return elements.some(element => element.textContent.includes('Will the hiring of TFWs requested in this application lead to job losses'));
-            });
+            await this.page.waitForSelector("label:has-text('How many Canadians/permanent residents did you lay off')")
+            : await this.page.waitForSelector("label:has-text('Will the hiring of TFWs requested in this application lead to job losses')");
     }
 }
 
@@ -328,15 +307,8 @@ class Recruitment5 extends WebPage {
         await this.page.click("#next");
         // wait for the next page to load
         this.data.lead_to_job_losss ?
-            await this.page.waitForFunction(() => {
-                const elements = Array.from(document.querySelectorAll('*'));
-                return elements.some(element => element.textContent.includes('Provide details on the impact of hiring the TFW(s) on your workforce'));
-            })
-            :
-            await this.page.waitForFunction(() => {
-                const elements = Array.from(document.querySelectorAll('*'));
-                return elements.some(element => element.textContent.includes('Does the business receive support through Employment'));
-            });
+            await this.page.waitForSelector('label:has-text("Provide details on the impact of hiring the TFW(s) on your workforce")')
+            : await this.page.waitForSelector('label:has-text("Does the business receive support through Employment")');
     }
 }
 
@@ -358,15 +330,8 @@ class Recruitment6 extends WebPage {
         await this.page.click("#next");
         // wait for the next page to load
         this.data.receive_support_from_esdc ?
-            await this.page.waitForFunction(() => {
-                const elements = Array.from(document.querySelectorAll('*'));
-                return elements.some(element => element.textContent.includes('Provide details regarding the support'));
-            })
-            :
-            await this.page.waitForFunction(() => {
-                const elements = Array.from(document.querySelectorAll('*'));
-                return elements.some(element => element.textContent.includes('Is there a labour dispute in progress'));
-            });
+            await this.page.waitForSelector("label:has-text('Provide details regarding the support') ")
+            : await this.page.waitForSelector("label:has-text('Is there a labour dispute in progress')");
     }
 }
 

@@ -22,14 +22,14 @@ class Filler {
         await page.setDefaultTimeout(this.defaultTimeOut);
 
         // Start tracing before creating / navigating a page.
-        await context.tracing.start({ screenshots: true, snapshots: true, sources: true });
+        // await context.tracing.start({ screenshots: true, snapshots: true, sources: true });
 
         /* Build pages according to page, and pages_builder_arguments, which includes stream, and data etc. */
         const webpages = await pages_builder(page, this.args);
         await this.handle_pages(webpages.pages);
 
         // Stop tracing and export it into a zip archive.
-        await context.tracing.stop({ path: "trace.zip" });
+        // await context.tracing.stop({ path: "trace.zip" });
 
         await context.close();
         await browser.close();

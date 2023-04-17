@@ -45,15 +45,11 @@ const lwsConvert = (data) => {
         "Position(s) is/are truly temporary": "PosTTemp",
         "Seasonal 270-day exemption": "Seas180Ex",
     }
-    const cap = {
-        "is_cap_exempted": d.cap_exempted == "Yes" ? true : false,
-        "which_exemption": d.which_exemption ? capExemptionMap[d.which_exemption] : null,
-        "exemption_details": d.exemption_rationale,
-        "in_seasonal_industry": d.is_in_seasonal_industry === "Yes" ? true : false,
-        "start_date": d.four_week_start_date,
-        "end_date": d.four_week_start_date,
-        "location_caps": [
-            {
+    const get_caps = (cap_list) => {
+        let caps = []
+        for (let i = 0; i < cap_list.length; i++) {
+            const d = cap_list[i];
+            const cap = {
                 "A": d.q_a ? d.q_a.toString() : '0',
                 "B": d.q_b ? d.q_b.toString() : '0',
                 "C": d.q_c ? d.q_c.toString() : '0',
@@ -63,7 +59,18 @@ const lwsConvert = (data) => {
                 "G": d.q_g ? d.q_g.toString() : '0',
                 "H": d.q_h ? d.q_h.toString() : '0',
             }
-        ]
+            caps.push(cap)
+        }
+        return caps;
+    }
+    const cap = {
+        "is_cap_exempted": d.cap_exempted == "Yes" ? true : false,
+        "which_exemption": d.which_exemption ? capExemptionMap[d.which_exemption] : null,
+        "exemption_details": d.exemption_rationale,
+        "in_seasonal_industry": d.is_in_seasonal_industry === "Yes" ? true : false,
+        "start_date": d.four_week_start_date,
+        "end_date": d.four_week_start_date,
+        "location_caps": get_caps(data.emp5627cap),
     }
 
     // assemble all the converted data

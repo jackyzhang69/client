@@ -52,7 +52,6 @@ function getArgs(parser, arguments) {
         renew: false,
         account: process.env[`${rcic}_prportal_account`],
         password: process.env[`${rcic}_prportal_password`],
-        update: args.update,
         pdf: args.pdf,
         png: args.png,
         screen_snap_folder: args.screen_snap_folder,
@@ -181,7 +180,9 @@ async function getSourceData(args) {
 
     // convert data to ee lmia data by using the adaptor according to the stream
     let converted_data = {};
-    let return_data = {};
+    let return_data = {
+        "client_account": paData.personal.email // set client account
+    };
     if (args.forms.includes('0008')) {
         const { imm0008Adaptor } = require("./adaptors/imm0008")
         const { imm0008Schema } = require('./validators/imm0008');
@@ -217,9 +218,6 @@ async function getSourceData(args) {
         const imm5669 = { converted_data, schema: imm5669Schema };
         return_data = { ...return_data, imm5669 };
     }
-
-
-
 
     return return_data;
 }

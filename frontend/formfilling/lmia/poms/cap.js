@@ -3,14 +3,15 @@ This moduel includes pages:
 1. CAP1: Cap exempted?
 
 */
-
+const { getActionableElementInRow } = require("../../libs/playwright")
+const { print } = require("../../libs/output")
 const WebPage = require('../../models/page');
 const { expect } = require('@playwright/test');
 
 // Do you believe CAP is exempted?
 class CAP1 extends WebPage {
     constructor(page, args) {
-        super(page, "cap1", "CAP: is CAP exempted?", args.data.cap);
+        super(page, "cap1", "CAP1: is CAP exempted?", args.data.cap);
         this.stream = args.stream
         this.accommodation = args.data.accommodation
     }
@@ -42,7 +43,7 @@ class CAP1 extends WebPage {
 // is not cap exempted, then ask if operating in seasonal industry
 class CAP2 extends WebPage {
     constructor(page, args) {
-        super(page, "cap2", "CAP: is operating in seasonal industry?", args.data.cap);
+        super(page, "cap2", "CAP2: is operating in seasonal industry?", args.data.cap);
         this.stream = args.stream
     }
 
@@ -54,6 +55,8 @@ class CAP2 extends WebPage {
         await this.page.click("#next");
         const in_seasonal = await this.page.locator("h2:has-text('Seasonal - Determining the Effect on the Cap')");
         const not_in_seasonal = await this.page.locator("h2:has-text('Non-Seasonal - Determining the Effect on the Cap')");
+        // 如果是季节性的， determine the effect on the cap
+        // 如果不是季节性的, no determine the effect on the cap
         this.data.in_seasonal_industry ? await expect(in_seasonal).toBeVisible() : await expect(not_in_seasonal).toBeVisible();
     }
 }
@@ -61,12 +64,13 @@ class CAP2 extends WebPage {
 // in seasonal or non-seasonal industry, giving CAP details and confirm if cap is met, then go or not go to
 class CAP3 extends WebPage {
     constructor(page, args) {
-        super(page, "cap3", "CAP: is operating in seasonal industry?", args.data.cap);
+        super(page, "cap3", "CAP3: determine CAP?", args.data.cap);
         this.stream = args.stream
         this.locations = args.data.work_location_duration.locations
+        this.args = args;
     }
 
-    // add cap TODO:
+
     async add_cap() {
         const location_number = this.locations.length
 
@@ -112,7 +116,18 @@ class CAP3 extends WebPage {
 
 
     async make_actions() {
-        await this.add_cap();
+        if (this.args.isCreate) {
+            await this.add_cap();
+        } else {
+            try {
+                await this.page.waitForSelector("button:has-text('Add')", { timeout: 5000 }); //if in edit model , add button may be not visible
+                await this.add_cap();
+            } catch (error) {
+                print("Technical error: should add cap details, but Add button did not show up. Recommend don't use edit model and re-create the application.", "error");
+                process.exit(1);
+            }
+        }
+
         // continue to apply if cap over. This is defenite so do not choose no
         await this.page.check("input[type=radio][value=Yes]");
     }

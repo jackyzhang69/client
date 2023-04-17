@@ -14,6 +14,8 @@ async function main() {
     // 2. get and convert data from excel, get schema and buildPages according to the stream
     let forms_data = await getSourceData(args);
 
+    args["client_account"] = forms_data.client_account;
+    delete forms_data.client_account;
     // 3. validate the data
     args["data"] = {};
     for (const [key, value] of Object.entries(forms_data)) {

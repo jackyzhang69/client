@@ -332,7 +332,7 @@ const recruitmentData = (data) => {
         canadians_declined_offers: summary.canadiansDeclinedOffers.toString(),
         resumes_not_interviewed_offered: summary.resumesNotInterviewedOffered.toString(),
         why_not_recruit_canadians: summary.why_canadian_not_hired,
-        employees_number: (Math.round(data.general.ft_employee_number + data.general.pt_employee_number / 2)).toString(),
+        employees_number: (Math.round(data.general.ft_employee_number + data.general.pt_employee_number)).toString(),
         revenue_more_than_5m: data.finance[0].revenue >= 5000000,
         why_not_attempted_to_recruit_canadians: null, //TODO: we have no such situation, so just leave it null
         transfer_skills: data.lmi.skill_transfer_benefit ? true : false,
