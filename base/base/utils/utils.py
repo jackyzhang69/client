@@ -5,6 +5,7 @@ import re
 from fuzzywuzzy import fuzz
 from typing import Union, List, Optional
 from json import JSONEncoder
+
 from .context import BASEDIR
 from datetime import datetime, date, timedelta
 from pydantic import BaseModel
@@ -107,7 +108,6 @@ class TextChanged:
         self.text2 = text2
 
     def __get_changed(self):
-
         t1_lines = self.text1.splitlines()
         t2_lines = self.text2.splitlines()
 
@@ -134,7 +134,25 @@ class TextChanged:
         return self.__get_changed()["text_deleted"]
 
 
-def best_match(term, list_names, min_score=0, return_score=False, to_lowercase=False):
+# def best_match(term, list_names, min_score=0, return_score=False, to_lowercase=False):
+#     max_score = -1
+#     max_name = ""
+#     for term2 in list_names:
+#         if to_lowercase:
+#             term = term.lower()
+#             score = fuzz.ratio(term, term2.lower())
+#         else:
+#             score = fuzz.ratio(term, term2)
+#         if (score > min_score) and (score > max_score):
+#             max_name = term2
+#             max_score = score
+#     if return_score:
+#         return max_name, max_score
+#     else:
+#         return max_name
+
+
+def best_match_string(term, list_names, min_score=0, to_lowercase=True):
     max_score = -1
     max_name = ""
     for term2 in list_names:
@@ -143,13 +161,39 @@ def best_match(term, list_names, min_score=0, return_score=False, to_lowercase=F
             score = fuzz.ratio(term, term2.lower())
         else:
             score = fuzz.ratio(term, term2)
-        if (score > min_score) and (score > max_score):
+        if score > min_score and score > max_score:
             max_name = term2
             max_score = score
-    if return_score:
-        return max_name, max_score
+    return max_score, max_name
+
+
+def best_match(term, items, min_score=0, return_score=False, to_lowercase=True):
+    if not isinstance(items, list) or items is None:
+        raise ValueError("items must be an array of strings")
+
+    included_items = []
+
+    for item in items:
+        is_same = item.lower() == term.lower() if to_lowercase else item == term
+        is_included = (
+            item.lower().find(term.lower()) != -1
+            if to_lowercase
+            else item.find(term) != -1
+        )
+        if is_same:
+            return item
+        elif is_included:
+            included_items.append(item)
+
+    matches = len(included_items)
+    if matches == 1:
+        return included_items[0]
+    elif matches > 1:
+        matched_item = best_match_string(term, included_items, to_lowercase)
+        return matched_item[0] if return_score else matched_item[1]
     else:
-        return max_name
+        matched_country = best_match_string(term, items, to_lowercase)
+        return matched_country[0] if return_score else matched_country[1]
 
 
 # Some common input functions

@@ -47,7 +47,9 @@ class CommonModel(BaseModel):
     # get combined excel throgh add up all input excels.
     def _addupExcels(self, excels, language="English"):
         language = (
-            Language.CHINESE if language and language.lower() == "chinese" else Language.ENGLISH
+            Language.CHINESE
+            if language and language.lower() == "chinese"
+            else Language.ENGLISH
         )
 
         excel_objs = list(map(lambda x: Excel(x, language=language), excels))
@@ -62,7 +64,6 @@ class CommonModel(BaseModel):
     """
 
     def _getInput(self, global_dict, original_excel_objs, new_excel_obj):
-
         input_kwargs = {}
         # According to the prerequisite described above, all the referrenced scheme are defined in 'definitions'.
         # key is Model name, and after lower(), it is also excel sheet name and the property defined in this class. They are same. This is the requirement.
@@ -138,7 +139,9 @@ class CommonModel(BaseModel):
 
     def generateExcel(self, language="English", **data):
         language = (
-            Language.CHINESE if language.lower() == "chinese" else Language.ENGLISH
+            Language.CHINESE
+            if language and language.lower() == "chinese"
+            else Language.ENGLISH
         )
         # 根据最终更新了variables的sheets和talbes，生成新的excel文件
         new_excel = data["new_excel_obj"]

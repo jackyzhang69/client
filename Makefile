@@ -14,16 +14,18 @@ build_client:
 	pip install -r ~/client/client/requirements.txt
 	
 
-copy_bcpnp:
+form:
 	rm -rf ~/client/frontend/formfilling/bcpnp
 	cp -Rf "${HOME}/imm/frontend/formfilling/bcpnp" ~/client/frontend/formfilling/bcpnp
 
-copy_lmia:
 	rm -rf ~/client/frontend/formfilling/lmia
 	cp -Rf "${HOME}/imm/frontend/formfilling/lmia" ~/client/frontend/formfilling/lmia
 
-copy_pr:
 	rm -rf ~/client/frontend/formfilling/pr
 	cp -Rf "${HOME}/imm/frontend/formfilling/pr" ~/client/frontend/formfilling/pr
 
-
+	cp "${HOME}/imm/frontend/formfilling/main.js" ~/client/frontend/formfilling/
+	cp "${HOME}/imm/frontend/formfilling/package.json" ~/client/frontend/formfilling/
+	cp "${HOME}/imm/frontend/formfilling/playwright.config.js" ~/client/frontend/formfilling/
+	cp -Rf "${HOME}/imm/frontend/formfilling/libs" ~/client/frontend/formfilling/libs/
+	cp -Rf "${HOME}/imm/frontend/formfilling/models" ~/client/frontend/formfilling/models/

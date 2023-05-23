@@ -1,9 +1,16 @@
+import json
+import os
+import platform
+import shutil
+import sys
 from pathlib import Path
+
+import certifi
+import dotenv
+import typer
+from pymongo import MongoClient
 from rich.console import Console
 from rich.style import Style
-import typer, json, os, sys, dotenv
-from pymongo import MongoClient
-import certifi
 
 # Get project's home directory,
 BASEDIR = Path(__file__).parents[2]
@@ -12,8 +19,29 @@ DATADIR = BASEDIR / "data"
 # Insert the BASEDIR to system path
 sys.path.insert(0, os.fspath(BASEDIR))
 
-path = os.path.abspath(os.path.join(os.path.expanduser("~"), ".immenv"))
-config = dotenv.dotenv_values(path)
+# app name
+APP_NAME = "immclient"
+
+
+# config path
+def get_config_path(app_name):
+    operating_system = platform.system()
+    config_path = ""
+
+    if operating_system == "Darwin":
+        home_dir = str(Path.home())
+        config_path = os.path.join(home_dir, "Library", "Application Support", app_name)
+    elif operating_system == "Windows":
+        app_data_dir = os.getenv("APPDATA")
+        config_path = os.path.join(app_data_dir, app_name)
+    else:
+        raise Exception(f"Unsupported operating system: {operating_system}")
+
+    return config_path
+
+
+# path = os.path.abspath(os.path.join(os.path.expanduser("~"), ".immenv"))
+# config = dotenv.dotenv_values(path)
 
 # app and console definition
 app = typer.Typer()
@@ -23,12 +51,15 @@ error_style = Style(color="red")
 success_style = Style(color="green")
 env_server = os.getenv("server")
 
-#SERVER_URL = env_server if env_server else "http://127.0.0.1:8000/"
-SERVER_URL = env_server if env_server else "https://api.jackyzhang.pro/"
 
 # imm account
+config_path = get_config_path(APP_NAME) + "/config.json"
+with open(config_path) as f:
+    config = json.load(f)
 imm_account: str = config.get("imm_user")
 imm_password: str = config.get("imm_password")
+# SERVER_URL = env_server if env_server else "http://127.0.0.1:8000/"
+SERVER_URL = env_server if env_server else config.get("server_url")
 
 # Mongodb
 account = os.getenv("MongoDBUser")
@@ -37,6 +68,7 @@ connection = f"mongodb+srv://{account}:{password}@noah.yi5fo.mongodb.net/test?re
 client = MongoClient(connection, tlsCAFile=certifi.where())
 database = "test"
 db = client[database]
+
 
 class Default:
     # default rcic and its company

@@ -42,7 +42,6 @@ class ExperienceModel(BaseModel, BuilderModel):
         return [company for index, company in enumerate(self.companies)]
 
     def context(self, company=""):
-
         # company = self.companies[int(which_one)]
         # get validated data
         m_ec = []
@@ -74,7 +73,7 @@ class ExperienceModel(BaseModel, BuilderModel):
             "hr_rep_name": getContent("fullname_of_certificate_provider"),
             "hr_rep_position": getContent("position_of_certificate_provider"),
             "hr_rep_department": getContent("department_of_certificate_provider"),
-            "hr_rep_phone": getContent("phone_of_certificate_provider"),
+            "hr_rep_phone": getContent("position_of_certificate_Person"),
             "hr_rep_email": getContent("email_of_certificate_provider"),
             "passport": ids.passport.number,
             "work": m_ec,
@@ -95,8 +94,9 @@ class ExperienceModel(BaseModel, BuilderModel):
 
 
 class ExperienceModelE(CommonModel, ExperienceModel):
-    def __init__(self, excels=None, output_excel_file=None,language=None):
+    def __init__(self, excels=None, output_excel_file=None, language=None):
         from base.models.utils import excel_language_path
-        path=excel_language_path(language)
-        mother_excels = [path+"/pa.xlsx"]
+
+        path = excel_language_path(language)
+        mother_excels = [path + "/pa.xlsx"]
         super().__init__(excels, output_excel_file, mother_excels, globals())

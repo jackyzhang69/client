@@ -4,6 +4,7 @@ from typing import List
 from collections import OrderedDict
 from base.source.formatter import SPECIAL_TABLE_LIST
 
+
 # @dataclass
 class TableNode:
     def __init__(self, **kwargs):
@@ -145,7 +146,9 @@ class Table:
         self.index_variable_pair = dict(zip(self.column_index, self.column_variables))
         converted_to_int = {int(k): v for k, v in self.index_variable_pair.items()}
         self.index_variable_pair = converted_to_int
+        self.column_index = [int(i) for i in self.column_index]
         self.index_title_pair = dict(zip(self.column_index, self.column_titles))
+        pass
 
     def __str__(self):
         return self.table_title
@@ -370,7 +373,12 @@ class Table:
             in special case, the "variable_type" is a fixed variable, so we can use it to find the same record
             """
             variable = node_obj.variable_type
-            another_node = another._get_table_node_by_variable(variable)
+            if (
+                variable == "working_address"
+            ):  # :(  working_address is a special case in special case
+                another_node = another.data[index]
+            else:
+                another_node = another._get_table_node_by_variable(variable)
             obj.data[index] = obj.data[index].copy(another_node)
 
         """ re-order the table node properties accoring to the tartet table new order"""

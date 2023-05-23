@@ -18,7 +18,7 @@ from base.utils.client.translator import translate
 from base.utils.utils import DateEncoder
 from dataclasses import dataclass
 from typing import Union
-
+from base.source.writer import ExcelWritter
 
 @dataclass
 class Source:
@@ -380,3 +380,8 @@ class Source:
                 )
 
         return self
+
+    # save to excel
+    def save(self, excel_name):
+        excel=ExcelWritter(excel_name,self._sheets,self._tables).create()
+        return excel

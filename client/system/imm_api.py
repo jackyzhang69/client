@@ -1,29 +1,23 @@
+import token
 import requests
 import dotenv
 import os
 from datetime import datetime
 import base64
 import json
-from client.system.config import SERVER_URL
+from client.system.config import SERVER_URL, config, config_path
 
-path = os.path.abspath(os.path.join(os.path.expanduser("~"), ".immenv"))
-
-# load env variables if a .env file exists
-dotenv.load_dotenv(path)
-
-
-ENV_PATH = ENV_PATH = path
 AUTH_URL = SERVER_URL + "login"
 print(f"We are using server {SERVER_URL}")
 
+
 def get_token(username: str, password: str):
     # get token from env
-    token = dotenv.get_key(ENV_PATH, "IMM_TOKEN")
+    token = config.get("imm_token")
     if token is not None:
         # check if it's expired
-        expire = dotenv.get_key(ENV_PATH, "IMM_EXPIRE")
+        expire = config.get("imm_expire")
         if expire is not None and datetime.now().timestamp() < int(expire):
-            # print(f'Using saved token \ntoken: {token}, \nexpire: {datetime.fromtimestamp(int(expire))}')
             return token
         else:
             print("Token expired, refreshing...")
@@ -48,8 +42,11 @@ def refresh_token(username: str, password: str):
         )
         expire = json.loads(decoded_payload).get("exp")
         # update env file to keep latest token and expire values
-        dotenv.set_key(ENV_PATH, "IMM_TOKEN", token)
-        dotenv.set_key(ENV_PATH, "IMM_EXPIRE", str(expire))
+        with open(config_path, "w") as f:
+            config["imm_token"] = token
+            config["imm_expire"] = str(expire)
+            json.dump(config, f)
+
         return token
     except requests.exceptions.HTTPError as errh:
         print(errh)
@@ -62,7 +59,10 @@ def refresh_token(username: str, password: str):
 
 
 def gen_request_headers():
-    token = get_token(os.getenv("imm_account"), os.getenv("imm_password"))
+    imm_account = config.get("imm_account")
+    imm_password = config.get("imm_password")
+    token = get_token(imm_account, imm_password)
+
     headers = {
         "accept": "application/json",
         "Content-Type": "application/json",

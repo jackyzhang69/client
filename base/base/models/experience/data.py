@@ -69,7 +69,6 @@ class Language(BaseModel):
 
     @root_validator
     def checkRowCompletion(cls, values):
-
         all_fields = [
             "reading",
             "writting",
@@ -91,7 +90,7 @@ class Employment(EmploymentBase):
     fullname_of_certificate_provider: Optional[str]
     position_of_certificate_provider: Optional[str]
     department_of_certificate_provider: Optional[str]
-    phone_of_certificate_provider: Optional[str]
+    position_of_certificate_Person: Optional[str]
     email_of_certificate_provider: Optional[EmailStr]
     employment_certificate: bool
 
@@ -137,7 +136,7 @@ class Employment(EmploymentBase):
             "fullname_of_certificate_provider",
             "position_of_certificate_provider",
             "department_of_certificate_provider",
-            "phone_of_certificate_provider",
+            "position_of_certificate_Person",
             "email_of_certificate_provider",
             "employment_certificate",
         ]
@@ -153,7 +152,7 @@ class Employment(EmploymentBase):
             "company_brief",
             "fullname_of_certificate_provider",
             "position_of_certificate_provider",
-            "phone_of_certificate_provider",
+            "position_of_certificate_Person",
             "email_of_certificate_provider",
             "employment_certificate",
         ]

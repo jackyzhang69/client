@@ -264,34 +264,51 @@ class CellFormatter:
                 "which_exemption": {
                     "validation": v.cap_exemption_type,
                 },
+            },
+            "table-emp5627cap": {
                 "q_a": {
                     "validation": v.positive_int_include_zero,
                     "style": int_number_format,
+                    "width": 30,
+                    "comment": [
+                        "Every row fill CAP data. The sequence is along with its work location listed in table-eraddress",
+                        "每一行填写CAP数据, 顺序按照table-eraddress中的工作地点顺序一致",
+                    ],
                 },
                 "q_b": {
                     "validation": v.positive_int_include_zero,
                     "style": int_number_format,
+                    "width": 30,
                 },
                 "q_c": {
                     "validation": v.positive_int_include_zero,
                     "style": int_number_format,
+                    "width": 30,
                 },
                 "q_d": {
                     "validation": v.positive_int_include_zero,
                     "style": int_number_format,
+                    "width": 30,
                 },
                 "q_e": {
                     "validation": v.positive_int_include_zero,
                     "style": int_number_format,
+                    "width": 30,
                 },
                 "q_f": {
                     "validation": v.positive_int_include_zero,
                     "style": int_number_format,
+                    "width": 30,
                 },
-                "q_g": {"validation": v.positive_int_decimal, "style": decimal_format},
+                "q_g": {
+                    "validation": v.positive_int_decimal,
+                    "style": decimal_format,
+                    "width": 30,
+                },
                 "q_h": {
                     "validation": v.positive_int_include_zero,
                     "style": int_number_format,
+                    "width": 30,
                 },
             },
             "table-emp5624lmbp": {
@@ -1372,7 +1389,7 @@ class CellFormatter:
                 "translate": ["street_and_number", "city", "province", "country"],
                 "title_note": [
                     "List all activities in the past ten years or since your 18th birthday (if less than 28 years old). Note: 1. From top to bottom, start with the most recent history. 2. There should be no blank between each history. 3. Only applicants aged 18 or above need to fill in this part.",
-                    "列举过去十年或18岁生日后(若小于28岁)所有从事的活动历史。注意:1. 从上到下，从最近的历史开始写。 2. 每段历史之间不允许有空档。3. 18岁以上的申请人才需要填写",
+                    "列举过去十年或18岁生日后(若小于28岁)所有从事的活动历史。注意:1. 从上到下,从最近的历史开始写。 2. 每段历史之间不允许有空档。3. 18岁以上的申请人才需要填写",
                 ],
                 "end_date": {"validation": v.date_format, "style": date_format},
                 "start_date": {"validation": v.date_format, "style": date_format},
@@ -1385,7 +1402,7 @@ class CellFormatter:
             "table-assumption": {
                 "title_note": [
                     "Future Canadian job assumptions, this is used as an assessment, and customers do not need to fill it out. The start date and end date are future dates, and the type of work permit is also assumed, which are used to calculate Canadian work experience and possible points.",
-                    "未来加拿大工作假设,这是作为评估使用，客户不需要填写。 开始日期和结束日期是未来日期，工签类型也是假设，都是用来计算加拿大工作经验以及可能的算分等使用",
+                    "未来加拿大工作假设,这是作为评估使用,客户不需要填写。 开始日期和结束日期是未来日期,工签类型也是假设,都是用来计算加拿大工作经验以及可能的算分等使用",
                 ],
                 "start_date": {"validation": v.date_format, "style": date_format},
                 "end_date": {"validation": v.date_format, "style": date_format},
@@ -1525,7 +1542,7 @@ class CellFormatter:
                     "width": 15,
                 },
                 "prov_payment_training": {
-                    "comment": ["Refer to  " "(T4A-Box 028)", "参考 (T4A-Box " "028)"],
+                    # "comment": ["Refer to  " "(T4A-Box 028)", "参考 (T4A-Box " "028)"],
                     "validation": v.positive_int_include_zero,
                     "style": money_format_int,
                     "width": 25,
@@ -1609,7 +1626,7 @@ class CellFormatter:
                 "academic_year": {
                     "comment": [
                         "What is the normal number of years to complete your studies according to the university?",
-                        "按照学校规定，正常几年完成学业？",
+                        "按照学校规定,正常几年完成学业？",
                     ]
                 },
             },
@@ -1675,14 +1692,14 @@ class CellFormatter:
                     "fullname_of_certificate_provider",
                     "position_of_certificate_provider",
                     "department_of_certificate_provider",
-                    "phone_of_certificate_provider",
+                    "position_of_certificate_Person",
                     "email_of_certificate_provider",
                     "employment_certificate",
                     "remark",
                 ],
                 "title_note": [
                     "The work experience part is the core, except for the noc code, all other customers need to fill in. For example: even if the share ratio is 0, please write it as 0. In the job responsibilities section, list as much detail as possible. To facilitate matching suitable jobs in Canada.",
-                    "工作经验部分是核心,除了noc代码之外,其他客户都需要填写。比如:即使股份比例是0,也请写明为0。 工作职责部分，尽量详细列出。便于匹配加拿大合适的工作。",
+                    "工作经验部分是核心,除了noc代码之外,其他客户都需要填写。比如:即使股份比例是0,也请写明为0。 工作职责部分,尽量详细列出。便于匹配加拿大合适的工作。",
                 ],
                 "bcpnp_qualified": {
                     "validation": v.yes_no,
@@ -1712,7 +1729,7 @@ class CellFormatter:
                     "comment": ["for RCIC's use", "这个客户不需要填写,由移民顾问填写"],
                 },
                 "share_percentage": {
-                    "comment": ["Share percentage, no % needed", "股份比例,不用加%，直接输入数字"],
+                    "comment": ["Share percentage, no % needed", "股份比例,不用加%,直接输入数字"],
                     "validation": v.positive_int_decimal,
                     "style": percetage_format,
                 },
@@ -1724,7 +1741,7 @@ class CellFormatter:
                 "work_under_status": {
                     "comment": [
                         "Please pick the status that you are working under",
-                        "请选择你在该阶段工作时的身份，如果是在本国工作，就可以不选",
+                        "请选择你在该阶段工作时的身份,如果是在本国工作,就可以不选",
                     ],
                     "validation": v.workpermit_type,
                     "width": 25,
@@ -1848,7 +1865,7 @@ class CellFormatter:
                 ],
                 "title_note": [
                     "List all activities in the past ten years or since your 18th birthday (if less than 28 years old). Note: 1. From top to bottom, start with the most recent history. 2. There should be no blank between each history. 3. Only applicants aged 18 or above need to fill in this part.",
-                    "列举过去十年或18岁生日后(若小于28岁)所有从事的活动历史。注意:1. 从上到下，从最近的历史开始写。 2. 每段历史之间不允许有空档。3. 18岁以上的申请人才需要填写",
+                    "列举过去十年或18岁生日后(若小于28岁)所有从事的活动历史。注意:1. 从上到下,从最近的历史开始写。 2. 每段历史之间不允许有空档。3. 18岁以上的申请人才需要填写",
                 ],
                 "end_date": {"validation": v.date_format, "style": date_format},
                 "start_date": {
@@ -2055,7 +2072,7 @@ class CellFormatter:
                 "number": {
                     "comment": [
                         "Write area code together with the phone number, no space between them, if there is area code",
-                        "如果有区号，请把区号和电话号码写在一起,不要用空格隔开",
+                        "如果有区号,请把区号和电话号码写在一起,不要用空格隔开",
                     ],
                     "validation": v.positive_int,
                     "style": int_number_format_without_comma,
@@ -2065,55 +2082,75 @@ class CellFormatter:
                     "style": int_number_format_without_comma,
                 },
             },
-            "table-sponsorfamilysize": {
-                "children": {
-                    "comment": [
-                        "The number of children under 22 and has no spouse or common-law partner",
-                        "22岁以下未婚或有同居伴侣的",
-                    ],
-                    "validation": v.positive_int_include_zero,
-                    "style": int_number_format,
-                },
-                "spouse": {
-                    "comment": [
-                        "if co-sign, include them for all 4 years, NO MATTER WHEN GOT MARRIED; if not co-sign, include them from the qualified year as a spouse or c-l partner,includes one's children",
-                        "如果是共同签名,则应将其包括在所有 4 年内,无论何时结婚; 如果不是共同签名,则应从符合条件的配偶或共同生活伴侣年度开始计入。包括其孩子",
-                    ],
-                    "validation": v.positive_int_include_zero,
-                    "style": int_number_format,
-                    "width": 15,
-                },
-                "year": {
-                    "validation": v.positive_int,
-                    "style": int_number_format_without_comma,
-                },
-            },
+            # "table-sponsorfamilysize": {
+            #     "children": {
+            #         "comment": [
+            #             "The number of children under 22 and has no spouse or common-law partner",
+            #             "22岁以下未婚或有同居伴侣的",
+            #         ],
+            #         "validation": v.positive_int_include_zero,
+            #         "style": int_number_format,
+            #     },
+            #     "spouse": {
+            #         "comment": [
+            #             "if co-sign, include them for all 4 years, NO MATTER WHEN GOT MARRIED; if not co-sign, include them from the qualified year as a spouse or c-l partner,includes one's children",
+            #             "如果是共同签名,则应将其包括在所有 4 年内,无论何时结婚; 如果不是共同签名,则应从符合条件的配偶或共同生活伴侣年度开始计入。包括其孩子",
+            #         ],
+            #         "validation": v.positive_int_include_zero,
+            #         "style": int_number_format,
+            #         "width": 15,
+            #     },
+            #     "year": {
+            #         "validation": v.positive_int,
+            #         "style": int_number_format_without_comma,
+            #     },
+            # },
             "table-familysize": {
                 "year": {
                     "validation": v.positive_int,
                     "style": int_number_format_without_comma,
                 },
                 "sponsor_spouse": {
+                    "comment": [
+                        "Sponsor's spouse/c-l partner: if co-sign, include in all 3 years; include separated spouse UNLESS divorced OR your spouse is a FN AND has been in a c-l relationship with another person",
+                        "若co-sign,三年均需计算；另需包括已分居配偶,除非已正式离婚,或者对方是外国人且已经和第三人形成事实婚姻关系",
+                    ],
                     "validation": v.positive_int,
                     "style": int_number_format,
                     "width": 15,
                 },
                 "sponros_children": {
+                    "comment": [
+                        "Dependent children of sponsor's family： under 22  and have no spouse/c-l partner; children of both sponsor and spouse/c-l partner, and dependent children of their dependent children",
+                        "包括担保人及配偶/同居伴侣的依附子女及依附子女的子女",
+                    ],
                     "validation": v.positive_int,
                     "style": int_number_format,
                     "width": 15,
                 },
                 "previous_sponsored": {
+                    "comment": [
+                        "Previous sponsorship in effect: you and your co-signer sponsored or co-signed; and their family members (s/c-l, dc, and dc of dc), even if they were not included in the then-application",
+                        "包括担保人及配偶/同居伴侣之前担保的且仍在承诺期的人以及其家庭成员（无论这些家庭成员是否在当年的担保申请中）",
+                    ],
                     "validation": v.positive_int,
                     "style": int_number_format,
                     "width": 15,
                 },
                 "pa_spouse": {
+                    "comment": [
+                        "PA's spouse/c-l partner: include the spouse even if they are separated ( unless they are divorced or either one is in a common-law relationship with another person) or c-l partner ",
+                        "包括已分居配偶,除非双方已正式离婚或者有任一方已有同居伴侣。",
+                    ],
                     "validation": v.positive_int,
                     "style": int_number_format,
                     "width": 15,
                 },
                 "pa_children": {
+                    "comment": [
+                        "Dependent children of pa's family: under 22  and have no spouse/c-l partner; children of both PA and PA's spouse/c-l partner, and dependent children of their dependent children",
+                        "包括 被担保主申请及配偶/同居伴侣的依附子女及依附子女的子女",
+                    ],
                     "validation": v.positive_int,
                     "style": int_number_format,
                     "width": 15,
@@ -2133,7 +2170,7 @@ class CellFormatter:
                     "width": 15,
                 },
                 "prov_payment_training": {
-                    "comment": ["Refer to  (T4A-Box 028)", "参考 (T4A-Box " "028)"],
+                    # "comment": ["Refer to  (T4A-Box 028)", "参考 (T4A-Box " "028)"],
                     "validation": v.positive_int_include_zero,
                     "style": money_format_int,
                     "width": 25,
@@ -2177,6 +2214,7 @@ class CellFormatter:
                 "purpose": {"width": 20},
             },
             "info-prrenew": {
+                "translate": ["explaination", "humanitarian_reason"],
                 "is_urgent": {
                     "validation": v.yes_no,
                 },

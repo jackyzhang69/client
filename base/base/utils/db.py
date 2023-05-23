@@ -1,26 +1,13 @@
-import os, certifi,dotenv
-from pymongo import MongoClient
 from typing import List
 from datetime import datetime
-
-# get imm system's env variables
-path = os.path.abspath(os.path.join(os.path.expanduser("~"), ".immenv"))
-config = dotenv.dotenv_values(path)
-# load env variables if a .env file exists
-dotenv.load_dotenv(path)
-
-# Mongodb
-account = os.getenv("MongoDBUser")
-password = os.getenv("MongoDBPassword")
-connection = f"mongodb+srv://{account}:{password}@noah.yi5fo.mongodb.net/test?retryWrites=true&w=majority"
-client = MongoClient(connection, tlsCAFile=certifi.where())
-database = "test"
-db = client[database]
-
+from config import db 
 
 class Collection:
     def __init__(self, collection: str):
-        # Create a new collection called  collection
+        if collection not in db.list_collection_names():
+            # Create the collection
+            db.create_collection(collection)
+            
         self.collection = db[collection]
 
     def insert_one(self, document: dict):

@@ -1,0 +1,42 @@
+{
+  "name": "formfilling",
+  "version": "1.0.0",
+  "main": "main.js",
+  "bin": {
+    "filler": "./main.js"
+  },
+  "dependencies": {
+    "argparse": "^2.0.1",
+    "chalk": "^5.2.0",
+    "colors": "^1.4.0",
+    "dotenv": "^16.0.3",
+    "esm": "^3.2.25",
+    "mongodb": "^5.1.0",
+    "node-fetch": "^2.6.1",
+    "openai": "^3.2.1",
+    "pdf-merge": "^1.2.0",
+    "playwright": "^1.33.0",
+    "prettier": "2.8.4",
+    "string-similarity": "^4.0.4",
+    "toml": "^3.0.0",
+    "xlsx": "^0.18.5",
+    "yup": "^1.0.2"
+  },
+  "pkg": {
+    "targets": [
+      "x64",
+      "macos"
+    ],
+    "outputPath": "dist"
+  },
+  "scripts": {
+    "bcpnpfill": "node bcpnp/main.js",
+    "lmiafill": "node lmia/main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.34.0"
+  }
+}

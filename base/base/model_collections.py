@@ -79,7 +79,7 @@ helps = {
         ),
     ],
     "lmia-cap": [title, make, check, run],
-    "pgp-assess": [title, make, check, run],
+    "pgp-assess": [title, make, check],
     "exp-rs": [
         title,
         make,

@@ -9,14 +9,19 @@ Get all excel's InfoSheet/TableSheet name, sheet title,column title, variable an
 
 def get_sheet_name_variable_index_dict(sheet):
     sheet_variable_index_dict = {}
+    sheet_variable_index_dict["sheet_title"]=sheet.sheet_title
+    sheet_variable_index_dict["column_titles"]=sheet.column_titles
+    sheet_variable_index_dict["column_variables"]=sheet.column_variables
+    
+    sheet_variable_index_dict["data"] = {}
     for info_node in sheet.data:
         variable_name = info_node.variable
         variable_index = info_node.index
         variable_description = info_node.description
 
-        sheet_variable_index_dict[variable_name] = {}
-        sheet_variable_index_dict[variable_name]["index"] = variable_index
-        sheet_variable_index_dict[variable_name]["description"] = variable_description
+        sheet_variable_index_dict["data"][variable_name] = {}
+        sheet_variable_index_dict["data"][variable_name]["index"] = variable_index
+        sheet_variable_index_dict["data"][variable_name]["description"] = variable_description
 
     return sheet_variable_index_dict
 
@@ -47,10 +52,16 @@ def get_excels_sheets_name_variable_index_list(excel_filenames):
 
 def get_table_name_variable_index_dict(table):
     table_variable_index_dict = {}
+    table_variable_index_dict["table_title"]=table.table_title
+    table_variable_index_dict["column_titles"]=table.column_titles
+    table_variable_index_dict["column_variables"]=table.column_variables
+    table_variable_index_dict["column_index"]=table.column_index
+    
+    table_variable_index_dict["data"]={}
     for index, variable in table.index_variable_pair.items():
-        table_variable_index_dict[variable] = {}
-        table_variable_index_dict[variable]["index"] = index
-        table_variable_index_dict[variable]["column_title"] = table.index_title_pair[
+        table_variable_index_dict["data"][variable] = {}
+        table_variable_index_dict["data"][variable]["index"] = index
+        table_variable_index_dict["data"][variable]["column_title"] = table.index_title_pair[
             index
         ]
 

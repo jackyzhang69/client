@@ -1,4 +1,4 @@
-from .ai import AIModel, get_ai_answer,get_ai_chat_answer
+from .ai import AIModel, get_ai_answer, get_ai_chat_answer
 
 
 def get_option(item: str, options: list[str]):
@@ -8,12 +8,11 @@ def get_option(item: str, options: list[str]):
     option = get_ai_answer(
         prompt, model=AIModel.DAVINCI, temperature=0, answer_is_json=False
     )
-
     return option
 
 
 # targets should be longer than sources. every source should be matched to a target, if a target has no matched source, it will be None
-def get_matched_list(targets:list[str],sources:list[str]):
+def get_matched_list(targets: list[str], sources: list[str]):
     prompt = f"""
     You are a classification expert.I require a JSON output where a target list of strings is matched with a source list of strings.
     Specifically, you need to iterate over the source list and match each string to a target string.
@@ -21,11 +20,7 @@ def get_matched_list(targets:list[str],sources:list[str]):
     If a target string has no match in the source list, include it in the JSON object with a value of null. The output is only json object, no any other string.
     Below is the source list: {sources},and the target list:{targets}. 
     """
-    
-    json_data = get_ai_chat_answer(
-        prompt, model="gpt-4"
-    )
+
+    json_data = get_ai_chat_answer(prompt, model="gpt-4")
 
     return json_data
-
-
