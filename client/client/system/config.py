@@ -20,7 +20,7 @@ DATADIR = BASEDIR / "data"
 sys.path.insert(0, os.fspath(BASEDIR))
 
 # app name
-APP_NAME = "immclient"
+APP_NAME = "rcictant"
 
 
 # config path
